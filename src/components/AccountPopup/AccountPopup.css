@@ -1,0 +1,150 @@
+.account-popup{
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: #00000000;
+  display: grid;
+}
+.popup-component{
+  place-self: center;
+  /* width: max(20vw, 900px); */
+  height: max(14vh, 600px);
+  color: #80808080;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 25px 30px;
+  border-radius: 8px;
+  font-size: 14px;
+  animation: fadeIn 0.5s;
+}
+.popup-component label{
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  align-items: center;
+  color: rgb(247, 239, 239);
+
+}
+.popup-component label h4{
+  font-size: 1.5rem;
+  flex-wrap: wrap;
+}
+.popup-component label h3{
+  font-size: 1rem;
+  max-width: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: none;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid rgb(247, 239, 239);
+}
+.popup-component label h3:hover {
+  background-color: rgb(177, 70, 70);
+}
+.account-input{
+  display: flex;
+  flex-direction: column;
+}
+.account-input input{
+  margin-bottom: 2rem;
+  outline: none;
+  border: 1px solid white;
+  box-shadow: 0 4px 6px rgb(225, 219, 219);
+  /* width: max(23vw, 700px); */
+  padding: 10px;
+  height: 1.7rem;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.account-popup button{
+  border: none;
+  color: rgb(247, 239, 239);
+  background-color: black;
+  width: max(25vw, 200px);
+  padding: 12px 0px;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 3rem;
+  font-size: 1.3rem;
+  border: 1px solid rgb(215, 209, 209);
+  place-self: center;
+  transition: transform 0.2s ease;
+} 
+.account-popup button:hover {
+  color: black;
+  background-color: white;
+  transform: scale(1.08);
+}
+.popup-condition{
+  display: flex;
+  align-items: start;
+  gap: 8px;
+  margin-top: -15px;
+  color: white;
+}
+.popup-condition input{
+  margin-top: 1rem;
+}
+.account-popup span{
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+.d{
+  color: white;
+  cursor: pointer;
+}
+
+
+
+
+@media (max-width: 480px) {
+  .account-popup {
+    position: absolute;
+    z-index: 1;
+    display: grid;
+    place-items: center; /* center child element */
+    width: 100%;
+    height: 100%;
+    background-color: #00000000; /* transparent */
+  }
+  
+
+  .popup-component {
+    padding: 20px;
+    gap: 15px;
+    margin: 10px;
+    min-height: auto;
+  }
+
+  
+}
+@media (max-width: 768px) {
+  .popup-component {
+      width: 290px;
+      padding: 25px;
+  }
+}
+@media (max-width: 320px) {
+  .popup-component {
+      padding: 15px;
+      gap: 12px;
+  }
+  
+  .account-input input {
+      height: 44px;
+      /* width: 6rem; */
+      padding: 10px 12px;
+  }
+  
+  .account-popup button {
+      height: 46px;
+      padding: 12px 16px;
+  }
+}

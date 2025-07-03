@@ -1,0 +1,46 @@
+.verify{
+  display: flex;
+  height: calc(100vh - 9.5rem);
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  overflow: auto;
+}
+.verify h4{
+  font-size: 1.5rem;
+}
+.verify input{
+  width: 4rem;
+  height: 4rem;
+  font-size: 2.5rem;
+  margin: 1.5rem;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align: center;
+}
+.verify button{
+  border: none;
+  color: white;
+  background-color: black;
+  width: max(35vw, 200px);
+  padding: 12px 0px;
+  border-radius: 4px;
+  margin-top: 3rem;
+  cursor: pointer;
+  height: 3.5rem;
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  place-self: center;
+  transition: transform 0.2s ease;
+}
+.verify button:hover {
+  transform: scale(1.15);
+}
+@media (max-width: 481px) {
+  .verify input{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 1rem;
+  }
+}

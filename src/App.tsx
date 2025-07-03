@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
+import AccountPopup from './components/AccountPopup/AccountPopup';
+import Navbar from './components/Navbar/Navbar';
+import ProfilePicture from './components/ProfileOtp/ProfilePicture';
+import Otp from './components/ProfileOtp/Otp';
 
 function App() {
+
+  const [loginPop, setLoginPop] = useState<boolean>(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+       {loginPop ? <AccountPopup setLoginPop={setLoginPop}/> : <></>}
+       <div className='App'>
+        <Navbar setLoginPop={setLoginPop}/>
+        <Otp />
+        {/* <ProfilePicture />  */}
+       </div>
+
+    </BrowserRouter>
   );
 }
 

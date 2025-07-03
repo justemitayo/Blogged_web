@@ -1,0 +1,70 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.profile-picture{
+  height: calc(100vh - 9.5rem);
+  padding: 1rem;
+  overflow: auto;
+}
+.backspace{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 3px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.register-picture{
+  display: flex;
+  width: max(25vw, 200px);
+  border: 2px solid black;
+  height: max(25vw, 200px);
+  border-radius: 50%;
+  position: relative;
+}
+.register-picture img{
+  width: max(25vw, 200px);
+  height: max(25vw, 200px);
+  border-radius: 50%;
+  position: absolute; 
+}
+.profile-picture-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.profile-picture-component h4{
+  font-size: 1.5rem;
+}
+.profile-picture-component span{
+  color: rgb(56, 53, 53);
+  margin-bottom: 4px;
+}
+.profile-picture-footer{
+  display: flex;
+  gap: max(15vw, 150px);
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+.profile-button{
+  border: none;
+  color: white;
+  background-color: black;
+  width: max(35vw, 200px);
+  padding: 12px 0px;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 3.5rem;
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  place-self: center;
+  transition: transform 0.2s ease;
+}
+.profile-button:hover {
+  transform: scale(1.15);
+}

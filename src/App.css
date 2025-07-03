@@ -1,4 +1,13 @@
-.App {
+.App{
+  background-color: white;
+  box-sizing: border-box;
+  height: 100vh;
+  width:100vw;
+  overflow-x:hidden;
+  overflow-y: hidden;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +44,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
