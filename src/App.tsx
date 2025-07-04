@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AccountPopup from './components/AccountPopup/AccountPopup';
 import Navbar from './components/Navbar/Navbar';
-import ProfilePicture from './components/ProfileOtp/ProfilePicture';
-import Otp from './components/ProfileOtp/Otp';
+import ErrorPage from './components/ErrorPage/Error';
+
 
 function App() {
 
@@ -15,9 +15,10 @@ function App() {
        {loginPop ? <AccountPopup setLoginPop={setLoginPop}/> : <></>}
        <div className='App'>
         <Navbar setLoginPop={setLoginPop}/>
-        <Otp />
-        {/* <ProfilePicture />  */}
        </div>
+       <Routes>
+        <Route path='/error' element={<ErrorPage />}/>
+       </Routes>
 
     </BrowserRouter>
   );
