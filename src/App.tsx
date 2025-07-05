@@ -18,6 +18,7 @@ function App() {
        </div>
        <Routes>
         <Route path='/error' element={<ErrorPage />}/>
+        
        </Routes>
 
     </BrowserRouter>
