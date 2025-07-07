@@ -1,61 +1,39 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
 import React from 'react';
+import errorAnim from '../../Animations/An_Error_Occured.json'; // adjust path if needed
+import './Error.css';
 
-const ErrorPage: React.FC = () => {
+export default function ErrorPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const { error_mssg, svr_error_mssg } = location.state || {};
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Oops! Something went wrong</h1>
-      <p style={styles.message}>{error_mssg || 'Unknown error occurred.'}</p>
+    <div className="error-page-container">
+      <div className="back-button-container">
+        <button onClick={() => navigate(-1)} className="back-button">
+          &larr; 
+        </button>
+      </div>
+
+      <div className="animation-container">
+        <Lottie animationData={errorAnim} loop autoplay />
+      </div>
+
+      <div>
+      <h2 className="error-title">Error!</h2>
+      <p className="error-message">{error_mssg || 'Something went wrong.'}</p>
 
       {svr_error_mssg && (
-        <p style={styles.serverMessage}>
-          Server Message: {svr_error_mssg}
-        </p>
+        <p className="server-message">{svr_error_mssg}</p>
       )}
 
-      <button style={styles.button} onClick={() => navigate('/')}>
+      <button className="home-button" onClick={() => navigate('/')}>
         Go to Home
       </button>
+      </div>
     </div>
   );
-};
-
-export default ErrorPage;
-
-// Simple inline styles (you can replace with Tailwind, CSS modules, etc.)
-const styles = {
-  container: {
-    padding: '2rem',
-    textAlign: 'center' as const,
-    backgroundColor: '#fff',
-    minHeight: '100vh',
-  },
-  title: {
-    fontSize: '2rem',
-    fontWeight: 'bold' as const,
-    color: '#c00',
-  },
-  message: {
-    fontSize: '1.2rem',
-    margin: '1rem 0',
-  },
-  serverMessage: {
-    fontSize: '1rem',
-    color: '#666',
-    marginBottom: '1.5rem',
-  },
-  button: {
-    padding: '10px 20px',
-    fontSize: '1rem',
-    border: 'none',
-    borderRadius: '6px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    cursor: 'pointer',
-  },
-};
+}

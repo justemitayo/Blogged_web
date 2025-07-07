@@ -4,6 +4,9 @@ import './App.css';
 import AccountPopup from './components/AccountPopup/AccountPopup';
 import Navbar from './components/Navbar/Navbar';
 import ErrorPage from './components/ErrorPage/Error';
+import ProfilePicture from './components/ProfileOtp/ProfilePicture';
+import Otp from './components/ProfileOtp/Otp';
+import InfoPage from './components/InfoPage/InfoPage';
 
 
 function App() {
@@ -12,13 +15,17 @@ function App() {
 
   return (
     <BrowserRouter>
-       {loginPop ? <AccountPopup setLoginPop={setLoginPop}/> : <></>}
+       
        <div className='App'>
         <Navbar setLoginPop={setLoginPop}/>
+        {loginPop ? <AccountPopup setLoginPop={setLoginPop}/> : <></>}
+        <ErrorPage />
+       
        </div>
        <Routes>
+        <Route path='/info' element={ <InfoPage />} />
         <Route path='/error' element={<ErrorPage />}/>
-        
+        <Route path ='/auth'element={<AccountPopup setLoginPop={setLoginPop}/>}/>
        </Routes>
 
     </BrowserRouter>

@@ -1,5 +1,6 @@
 import React,{useState , useRef} from 'react'
 import './ProfilePicture.css'
+import { no_double_clicks } from '../../utils/no_double_click/no_double_clicks';
 import back from '../../Assets/icon/Back_Arrow.png'
 import image from '../../Assets/svg/image.svg'
 import picture from '../../Assets/icon/default_user_dp_light.jpg'
@@ -26,17 +27,22 @@ const ProfilePicture = ({setCurrState}:props) => {
     }
   };
 
-  const handleChooseClick = () => {
-    fileInputRef.current?.click(); // Trigger the file dialog
-  };
-
-  const handleRemove = () => {
-    setProfilePicture(null);
-    setPreview(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''; // Clear file input
+  const handleChooseClick = no_double_clicks({
+    execFunc: () => {
+      fileInputRef.current?.click(); // Trigger the file dialog
     }
-  };
+  })
+
+
+  const handleRemove = no_double_clicks({
+    execFunc: () => {
+      setProfilePicture(null);
+      setPreview(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''; // Clear file input
+      }
+    }
+  })
 
   return (
     <div className='profile-picture'>

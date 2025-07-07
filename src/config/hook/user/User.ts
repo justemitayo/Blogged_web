@@ -52,3 +52,49 @@ export const sign_in = async ({
           }
       });
 };
+
+export const delete_account = async ({
+    user_token,
+}: {
+    user_token: string;
+}) => {
+    return await api_base_url
+        .delete('users/delete', {
+            headers: {
+                'x-access-token': user_token,
+            },
+        })
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: 'success',
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
