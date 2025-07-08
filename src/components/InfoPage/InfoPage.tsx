@@ -79,7 +79,7 @@ export default function InfoPage() {
     execFunc: () => {
       switch (proceed_type) {
         case 1:
-          navigate('/auth', { replace: true });
+          navigate('/', { replace: true });
           break;
         case 2:
           resetAll();
@@ -94,7 +94,7 @@ export default function InfoPage() {
           delete_blog_mutate({ user_token: user_info.token || '', blogID: current_blog_id  || ''});
           break;
         default:
-          navigate('/auth', { replace: true });
+          navigate('/', { replace: true });
           break;
       }
     },

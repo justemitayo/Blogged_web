@@ -98,3 +98,52 @@ export const delete_account = async ({
             }
         });
 };
+
+export const update_display_picture = async ({
+    user_token,
+    displayPicture,
+}: {
+    user_token: string;
+    displayPicture: string;
+}) => {
+    return await api_base_url
+        .patch('users/updatedp', {
+            dp: displayPicture,
+            headers: {
+                'x-access-token': user_token,
+            },
+        })
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: 'success',
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
