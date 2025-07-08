@@ -6,9 +6,11 @@ import image from '../../Assets/svg/image.svg'
 import picture from '../../Assets/icon/default_user_dp_light.jpg'
 import { useUserInfoStore } from '../../store/User_Info.store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { update_display_picture } from '../../config/hook/user/User';
+import { sign_up } from '../../config/hook/user/User';
 import { error_handler } from '../../utils/Error_Handler/Error_Handler';
 import { useNavigate } from 'react-router-dom';
+import { saveString } from '../../config/domain/Storage';
+import { strings } from '../../config/domain/Strings';
 import { query_id } from '../../config/hook/Query_ID/Query_ID';
 
 
@@ -16,9 +18,12 @@ import { query_id } from '../../config/hook/Query_ID/Query_ID';
 interface props{
   setCurrState:React.Dispatch<React.SetStateAction<"Login" | "signup" | "pass">>;
   setStep: React.Dispatch<React.SetStateAction<"signup" | "pic" | "otp">>
+  email: string;
+  password:string;
+  username: string
 }
 
-const ProfilePicture = ({setCurrState, setStep}:props) => {
+const ProfilePicture = ({setCurrState, setStep, email, password, username}:props) => {
 
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -28,11 +33,32 @@ const ProfilePicture = ({setCurrState, setStep}:props) => {
     // Reference to the hidden file input
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const user_info = useUserInfoStore().user_info;
+  const setUserInfo = useUserInfoStore().set_user_info
     const queryClient = useQueryClient();
 
-    const { mutate: update_dp_mutate } = useMutation({
-      mutationFn: update_display_picture,
+    // const { mutate: update_dp_mutate } = useMutation({
+    //   mutationFn: update_display_picture,
+    //   onMutate: () => {
+    //     setDisableButton(true);
+    //     setShowSpinner(true);
+    //   },
+    //   onSettled: async (data) => {
+    //     setDisableButton(false);
+    //     setShowSpinner(false);
+    //     if (data?.error) {
+    //       error_handler({ 
+    //         navigate,
+    //         error_mssg: data?.data });
+    //     } else {
+    //       queryClient.invalidateQueries({
+    //         queryKey: query_id({ id: user_info.uid }).user_with_id,
+    //       });
+    //       setStep('otp')
+    //     }
+    //   }
+    // });
+    const { mutate: sign_up_mutate } = useMutation({
+      mutationFn: sign_up,
       onMutate: () => {
         setDisableButton(true);
         setShowSpinner(true);
@@ -40,18 +66,27 @@ const ProfilePicture = ({setCurrState, setStep}:props) => {
       onSettled: async (data) => {
         setDisableButton(false);
         setShowSpinner(false);
+    
         if (data?.error) {
-          error_handler({ 
+          error_handler({
             navigate,
-            error_mssg: data?.data });
-        } else {
-          queryClient.invalidateQueries({
-            queryKey: query_id({ id: user_info.uid }).user_with_id,
+            error_mssg: data.data,
           });
-          setStep('otp')
+        } else {
+          const { token, uid, email_v } = data?.data;
+    
+          // Save to localStorage
+          await saveString(strings.userToken, token);
+    
+          // Update global store
+          setUserInfo({ token, uid, email_v });
+    
+          // Proceed to OTP step
+          setStep('otp');
         }
-      }
+      },
     });
+    
 
 
   const profileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,19 +114,39 @@ const ProfilePicture = ({setCurrState, setStep}:props) => {
     }
   });
 
-  const handleUpload = no_double_clicks({
+  // const handleUpload = no_double_clicks({
+  //   execFunc: () => {
+  //     if (!profilePicture) return;
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       update_dp_mutate({
+  //         displayPicture: reader.result as string,
+  //         user_token: user_info.token || '',
+  //       });
+  //     };
+  //     reader.readAsDataURL(profilePicture);
+  //   }
+  // });
+
+  const submitSignUp = no_double_clicks({
     execFunc: () => {
       if (!profilePicture) return;
+  
       const reader = new FileReader();
       reader.onloadend = () => {
-        update_dp_mutate({
-          displayPicture: reader.result as string,
-          user_token: user_info.token || '',
+        const base64String = reader.result as string;
+        sign_up_mutate({
+          email,
+          username,
+          password,
+          displayPicture: base64String, // ✅ now a string
         });
       };
-      reader.readAsDataURL(profilePicture);
-    }
+  
+      reader.readAsDataURL(profilePicture); // Convert image to base64
+    },
   });
+  
 
   return (
     <div className='profile-picture'>
@@ -116,7 +171,7 @@ const ProfilePicture = ({setCurrState, setStep}:props) => {
 
           </div>
         </div>
-        <button className='profile-button' onClick={handleUpload} disabled={disableButton || !profilePicture}>Register</button>
+        <button className='profile-button' onClick={submitSignUp} disabled={disableButton || !profilePicture}>Register</button>
 
       </div>
     </div>

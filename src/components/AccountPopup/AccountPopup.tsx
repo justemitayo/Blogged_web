@@ -221,7 +221,9 @@ const AccountPopup = ({setLoginPop}:props) => {
           }
         </form>
 
-      ): step === 'pic' ? (<ProfilePicture  setCurrState={setCurrState} setStep={setStep}/>): (<Otp />)}
+      ): step === 'pic' ? (<ProfilePicture  setCurrState={setCurrState} setStep={setStep}  email={email}
+        username={username}
+        password={password} />): (<Otp />)}
     </div>
   )
 }
