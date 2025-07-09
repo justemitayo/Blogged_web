@@ -105,6 +105,100 @@ export const sign_up = async ({
             }
         });
 };
+export const send_email_ver = async ({
+    user_token,
+}: {
+    user_token: string;
+}) => {
+    return await api_base_url
+        .patch('users/verifymail/send', {
+            headers: {
+                'x-access-token': user_token,
+            },
+        })
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: 'success',
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
+export const confirm_email = async ({
+    user_token,
+    otp,
+}: {
+    user_token: string;
+    otp: string;
+}) => {
+    return await api_base_url
+        .patch('users/verifymail/confirm', {
+            otp: otp,
+            headers: {
+                'x-access-token': user_token,
+            },
+        })
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: 'success',
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
 
 export const delete_account = async ({
     user_token,
