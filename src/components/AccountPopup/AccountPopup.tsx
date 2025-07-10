@@ -7,10 +7,11 @@ import { useUserInfoStore } from '../../store/User_Info.store';
 import { useMutation } from '@tanstack/react-query';
 import { error_handler } from '../../utils/Error_Handler/Error_Handler';
 import { regex_email_checker } from '../../utils/Email_Checker/Email_Checker';
-import { sign_in } from '../../config/hook/user/User';
+import { sign_in, forgot_password } from '../../config/hook/user/User';
 import { saveString } from '../../config/domain/Storage';
-import { strings } from '../../config/domain/Strings';
+import { strings} from '../../config/domain/Strings';
 import Otp from '../ProfileOtp/Otp';
+import { info_handler } from '../../utils/Info_Handler/Info_Handler';
 
 
 
@@ -55,6 +56,51 @@ const AccountPopup = ({setLoginPop}:props) => {
       navigate('/', { replace: true });
     },
   });
+
+  const { mutate: forgot_password_mutate } = useMutation({
+
+    mutationFn:forgot_password, 
+
+    onMutate: () => {
+        setDisableButton(true);
+        setShowSpinner(true);
+    },
+    onSettled: async data => {
+        setShowSpinner(false);
+        setDisableButton(false);
+        if (data?.error) {
+            error_handler({
+                navigate,
+                error_mssg: data?.data,
+            });
+        } else {
+            info_handler({
+                navigate,
+                success_mssg:
+                    'A New Password has been sent to your Email Address. Please check your Email for your new password and be sure to change your password once you are Signed In.',
+                proceed_type: 1,
+                hide_back_btn: true,
+                hide_header: false,
+            });
+        }
+    },
+});
+
+const send_mail = no_double_clicks({
+  execFunc: () => {
+      if (regex_email_checker({ email: email })) {
+          forgot_password_mutate({
+              email: email,
+          });
+      } else {
+          error_handler({
+              navigate,
+              error_mssg: 'Email field cannot be empty!',
+          });
+      }
+  },
+});
+
 
   const signInUser = no_double_clicks({
     execFunc: () => {
@@ -209,7 +255,7 @@ const AccountPopup = ({setLoginPop}:props) => {
             ) : currState === 'signup' ? (
               <button onClick={proceed}>Proceed</button>
             ) : (
-              <button>Send Mail</button>
+              <button onClick={send_mail}>Send Mail</button>
             )
           }
           {

@@ -81,7 +81,7 @@ const Otp = () => {
     // Whenever activeIndex changes (e.g., after typing or backspacing), this effect runs.
   }, [activeIndex]);
 
-
+    // Auto-trigger email send on page mount
   useEffect(() => {
     const token = user_info?.token;
   
