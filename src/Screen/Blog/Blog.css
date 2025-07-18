@@ -1,0 +1,152 @@
+.blog{
+  padding: 1.5rem;
+}
+.blog-component{
+  height: 75vh;
+  overflow-y: auto;
+}
+.back{
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 1px solid black;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.blogImage{
+  width: 100%;
+  height: 30rem;
+  display: flex;
+  place-self: center;
+}
+.blog-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.blog-header p{
+  background-color: rgb(219, 215, 215);
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.blog-title{
+  font-size: 2rem;
+  font-weight: bolder;
+}
+.blogs{
+  display: flex;
+  gap: 1.5rem;
+}
+.blogs span{
+  font-size: 1rem;
+}
+.blog-owner{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.blog-owner img{
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+.blog-owner p{
+  margin-right: 0.8rem;
+  font-size: 20px;
+}
+.blog-owner span{
+  color: gray;
+}
+.blog-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  padding: 0.5rem 0rem;
+}
+.blog-mini{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.side-modal {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 70%;
+  background-color: #fff;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  animation: slideIn 0.3s forwards;
+}
+.bg{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.modal-content {
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  float: right;
+  cursor: pointer;
+}
+
+textarea {
+  width: 99%;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 8px;
+  resize: none;
+  font-size: 1rem;
+  place-content: center;
+
+}
+
+button {
+  width: 100%;
+  margin-top: 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+  padding: 8px;
+  border: none;
+  resize: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+
+
+@media (max-width: 842px) {
+  .blogImage{
+    height: 15rem;
+  }
+  .blog-title{
+    font-size: 1.3rem;
+  }
+  .blog-component{
+    height: 82vh;
+  }
+}
