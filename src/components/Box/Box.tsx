@@ -1,10 +1,18 @@
-import React from 'react'
+import React,{FunctionComponent} from 'react'
 import use from '../../Assets/icon/default_user_dark.jpg'
 import './Box.css'
 import { useNavigate } from 'react-router-dom'
+import {INTF_BlogPost } from '../../Interface/Blog_Post'
+import {INTF_Tag } from '../../Interface/Tags'
 
 
-const Box = () => {
+interface BlogCardProps {
+  blog_post: INTF_BlogPost;
+  index: number;
+  tags: INTF_Tag[];
+}
+
+const Box: FunctionComponent<BlogCardProps>= ({blog_post, index, tags}) => {
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate('/blogPost')
