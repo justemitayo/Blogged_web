@@ -379,7 +379,7 @@ export const edit_comment = async ({
         });
 };
 
-export const delete_comment = async ({
+export const delete_comments = async ({
     user_token,
     blogID,
     commentID,

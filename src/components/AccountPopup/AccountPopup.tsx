@@ -29,7 +29,6 @@ const AccountPopup = ({setLoginPop}:props) => {
   const [showSpinner, setShowSpinner] = useState(false);
   const [disableButton, setDisableButton] = useState(false);
 
-
   const setUserInfo = useUserInfoStore().set_user_info
 
   const { mutate: sign_in_mutate } = useMutation({
@@ -53,6 +52,8 @@ const AccountPopup = ({setLoginPop}:props) => {
       const { token, uid, email_v } = data?.data;
       await saveString(strings.userToken, token);
       setUserInfo({ token, uid, email_v });
+      console.log({login_token: token})
+      setLoginPop(false);
       navigate('/', { replace: true });
     },
   });
@@ -68,6 +69,7 @@ const AccountPopup = ({setLoginPop}:props) => {
     onSettled: async data => {
         setShowSpinner(false);
         setDisableButton(false);
+        navigate('/')
         if (data?.error) {
             error_handler({
                 navigate,
@@ -106,14 +108,18 @@ const send_mail = no_double_clicks({
     execFunc: () => {
       if (regex_email_checker({ email }) && password) {
         sign_in_mutate({ email, password });
+        console.log('user in')
       } else {
-        error_handler({
-          navigate,
-          error_mssg: 'Email or password cannot be empty!',
-        });
+        // error_handler({
+        //   navigate,
+        //   error_mssg: 'Email or password cannot be empty!',
+        // });
       }
     },
-  });
+    
+  })
+
+
   const proceed = no_double_clicks({
     execFunc: () => {
       if (username && email && password && cPassword) {
@@ -230,7 +236,7 @@ const send_mail = no_double_clicks({
                   required
                 />
                 <input 
-                  type='Confirm Password'
+                  type='Password'
                   name='Confirm Password'
                   value={cPassword}
                   onChange={(e) => setCPassword(e.target.value)}
@@ -243,19 +249,22 @@ const send_mail = no_double_clicks({
                 <input 
                   type='email'
                   name='email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder='Enter your email'
                   required
+                  disabled={disableButton}
                 />
                 </div>
             )
           }
           {
             currState === 'Login' ? (
-              <button onClick={signInUser}>Login</button>
+              <button type="button" onClick={signInUser}>Login</button>
             ) : currState === 'signup' ? (
-              <button onClick={proceed}>Proceed</button>
+              <button type="button" onClick={proceed}>Proceed</button>
             ) : (
-              <button onClick={send_mail}>Send Mail</button>
+              <button type="button" onClick={send_mail} disabled={disableButton}>Send Mail</button>
             )
           }
           {
@@ -267,7 +276,7 @@ const send_mail = no_double_clicks({
           }
         </form>
 
-      ): step === 'pic' ? (<ProfilePicture  setCurrState={setCurrState} setStep={setStep}  email={email}
+      ): step === 'pic' ? (<ProfilePicture setStep={setStep}  email={email}
         username={username}
         password={password} />): (<Otp />)}
     </div>

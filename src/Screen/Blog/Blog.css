@@ -5,6 +5,9 @@
   height: 75vh;
   overflow-y: auto;
 }
+.box-image{
+  border-bottom: 1px solid black;
+}
 .back{
   cursor: pointer;
   padding: 0.5rem;
@@ -134,6 +137,15 @@ button {
   resize: none;
   font-size: 1rem;
   cursor: pointer;
+}
+.blog-head{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blog-head img {
+  width: 100vw;
+  height: 50vh;
 }
 
 

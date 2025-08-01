@@ -5,7 +5,7 @@ import back from '../../Assets/icon/Back_Arrow.png'
 import image from '../../Assets/svg/image.svg'
 import picture from '../../Assets/icon/default_user_dp_light.jpg'
 import { useUserInfoStore } from '../../store/User_Info.store';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { sign_up } from '../../config/hook/user/User';
 import { error_handler } from '../../utils/Error_Handler/Error_Handler';
 import { useNavigate } from 'react-router-dom';
@@ -16,14 +16,13 @@ import { query_id } from '../../config/hook/Query_ID/Query_ID';
 
 
 interface props{
-  setCurrState:React.Dispatch<React.SetStateAction<"Login" | "signup" | "pass">>;
   setStep: React.Dispatch<React.SetStateAction<"signup" | "pic" | "otp">>
   email: string;
   password:string;
   username: string
 }
 
-const ProfilePicture = ({setCurrState, setStep, email, password, username}:props) => {
+const ProfilePicture = ({ setStep, email, password, username}:props) => {
 
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -34,7 +33,6 @@ const ProfilePicture = ({setCurrState, setStep, email, password, username}:props
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const setUserInfo = useUserInfoStore().set_user_info
-    const queryClient = useQueryClient();
 
     // const { mutate: update_dp_mutate } = useMutation({
     //   mutationFn: update_display_picture,
@@ -82,7 +80,7 @@ const ProfilePicture = ({setCurrState, setStep, email, password, username}:props
           setUserInfo({ token, uid, email_v });
     
           // Proceed to OTP step
-          setStep('otp');
+          navigate('/otp')
         }
       },
     });
@@ -139,7 +137,7 @@ const ProfilePicture = ({setCurrState, setStep, email, password, username}:props
           email,
           username,
           password,
-          displayPicture: base64String, // ✅ now a string
+          displayPicture: base64String, // now a string
         });
       };
   
@@ -152,7 +150,7 @@ const ProfilePicture = ({setCurrState, setStep, email, password, username}:props
     <div className='profile-picture'>
          {showSpinner && <p className="spinner">Uploading...</p>}
       <div className='backspace'>
-        <img alt='' src={back} onClick={() => setCurrState('signup')} style={{width:'1.25rem', height:'1.25rem'}}/>
+        <img alt='' src={back} onClick={() => navigate(-1)} style={{width:'1.25rem', height:'1.25rem'}}/>
       </div>
       <div className='profile-picture-component'>
         <h4>Select a Display Picture to Proceed</h4>

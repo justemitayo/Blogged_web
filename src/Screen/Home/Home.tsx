@@ -10,6 +10,11 @@ import { useAppTagStore } from '../../store/App_Tags';
 import { query_id } from '../../config/hook/Query_ID/Query_ID';
 import { global_variables } from '../../config/hook/Global/Global_Variable';
 import {INTF_BlogPost } from '../../Interface/Blog_Post'
+import back from '../../Assets/icon/Back_Arrow.png'
+import { INTF_Tag } from '../../Interface/Tags';
+import { no_double_clicks } from '../../utils/no_double_click/no_double_clicks';
+import TagButton from '../../components/Tag/TagButton';
+
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
@@ -17,10 +22,19 @@ const Home = () => {
   const [allBlogs, setAllBlogs] = useState<INTF_BlogPost[]>([]);
   const [forYouBlogs, setForYouBlogs] = useState<INTF_BlogPost[]>([]);
   const [trendingBlogs, setTrendingBlogs] = useState<INTF_BlogPost[]>([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+
+
 
   const user_Info = useUserInfoStore().user_info;
+  console.log({ user_Info })
   const search_tags = useSearchTagsStore().search_tags;
   const app_tags = useAppTagStore().app_tags;
+  const clear_search_tags = useSearchTagsStore().clear_search_tags
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   const {
     data: allBlogsData,
@@ -46,7 +60,7 @@ const Home = () => {
       lastPage.data.length === global_variables.reloadInfiniteDataLimit
         ? pages.length + 1
         : undefined,
-    enabled: false,
+      enabled: search.length > 0 || search_tags.length > 0, 
   });
 
 
@@ -68,11 +82,6 @@ const Home = () => {
         : undefined,
   });
 
-  useEffect(() => {
-    refetchAllBlogs();
-}, [search, search_tags,refetchAllBlogs]);
-
-
   const {
     data: trendingBlogsData,
     refetch: refetchTrendingBlogs,
@@ -90,6 +99,14 @@ const Home = () => {
         ? pages.length + 1
         : undefined,
   });
+
+  const clear_search_tags_func = no_double_clicks({
+      execFunc: () => {
+          clear_search_tags();
+      },
+  });
+
+
     useEffect(() => {
       refetchAllBlogs();
       refetchForYouBlogs();
@@ -123,7 +140,7 @@ const Home = () => {
           onChange={(e) => setSearch(e.target.value)}
           disabled={isFetchingAllBlogs} 
         />
-        <img src={filter} alt=''/>
+        <img src={filter} alt='' onClick={openModal}/>
       </div>
 
         {isErrorAllBlogs && (
@@ -142,31 +159,38 @@ const Home = () => {
 
       {!isErrorAllBlogs && !isLoadingAllBlogs && allBlogs.length > 0 && (
         <div className='home-content'>
-          {allBlogs.map((item, index) => (
-            <React.Fragment key={item.bid}>
-            {index === 0 && trendingBlogs.length > 0 && search.length === 0 && search_tags.length === 0 && (
-                <div className='home-blog'>
-                  {trendingBlogs.map((blog) => (
-                    <Box key={'Trending' + blog.bid} blog_post={blog} index={0} tags={app_tags} />
-                  ))}
+            <React.Fragment>
+              {trendingBlogs.length > 0 && search.length === 0 && search_tags.length === 0 && (
+                <div>  
+                    <h2>Trending</h2>
+                  <div>
+                    {trendingBlogs.map((blog) => (
+                      <Box key={'Trending' + blog.bid} blog_post={blog} index={0} tags={app_tags} />
+                    ))}
+                  </div>
+                  <div className="divider" />
                 </div>
-              )}
 
-              {index === 3 && forYouBlogs.length > 0 && search.length === 0 && search_tags.length === 0 && (
-              <>
-                <div className="divider" />
-                <h2>Recommended</h2>
-                <div className='home-blog'>
-                {forYouBlogs.map((blog) => (
-                  <Box key={'ForYou' + blog.bid} blog_post={blog} index={0} tags={app_tags} />
+              )}
+              <div className='home-blog'>
+                {allBlogs.map((item, index) => (
+                    <Box key={item.bid} blog_post={item} index={index} tags={app_tags} />
                 ))}
+              </div>
+
+              { forYouBlogs.length > 0 && search.length === 0 && search_tags.length === 0 && (
+                <div>
+                  <div className="divider" />
+                  <h2>Recommended</h2>
+                  <div className='home-blog'>
+                  {forYouBlogs.map((blog) => (
+                    <Box key={'ForYou' + blog.bid} blog_post={blog} index={0} tags={app_tags} />
+                  ))}
+                  </div>
+                  <div className="divider" />
                 </div>
-                <div className="divider" />
-              </>
-             )}
-              <Box blog_post={item} index={index} tags={app_tags} />
+               )}
             </React.Fragment>
-          ))}
         <div className="load-more-section">
           {hasNextPageAllBlogs && (
             <button
@@ -180,6 +204,28 @@ const Home = () => {
         </div>
         </div>
       )}
+      {showModal && 
+        (app_tags || []) !== null &&
+        (app_tags || []) !== undefined &&
+        (app_tags || [])?.length > 0 && (
+          <div className='side-modal'>
+            <img src={back} alt='' className='back' onClick={closeModal} />
+            <div className='modal-content'>
+              <h2>Filter your Feeds:</h2>
+              <div className='tag-in'>
+                {app_tags !== undefined &&
+                (app_tags || [])?.map(
+                    (tag: INTF_Tag, index: number) => (
+                        <TagButton tag={tag} key={index} />
+                    ),
+                )}
+              </div>
+              <button onClick={ clear_search_tags_func } className='filter'>Clear Filters</button>
+            </div>
+          </div>
+
+        )
+      }
     </div>
   )
 }

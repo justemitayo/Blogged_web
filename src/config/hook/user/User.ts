@@ -19,6 +19,7 @@ export const sign_in = async ({
           password: password,
       })
       ?.catch(err => {
+        console.log('user out')
           return {
               error: true,
               data: err?.message,
@@ -32,6 +33,7 @@ export const sign_in = async ({
               };
           } else {
               if (res?.data?.status === 'success') {
+                console.log('user in')
                   return {
                       error: false,
                       data: res?.data?.response,
@@ -334,3 +336,369 @@ export const update_display_picture = async ({
             }
         });
 };
+
+export const follow_author = async ({
+    user_token,
+    authorID,
+}: {
+    user_token: string;
+    authorID: string;
+}) => {
+    return await api_base_url
+        .patch('users/follow', {
+            aid: authorID,
+            headers: {
+                'x-access-token': user_token,
+            },
+        })
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: 'success',
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
+export const unfollow_author = async ({
+    user_token,
+    authorID,
+}: {
+    user_token: string;
+    authorID: string;
+}) => {
+    return await api_base_url
+        .patch('users/unfollow', {
+            aid: authorID,
+            headers: {
+                'x-access-token': user_token,
+            },
+        })
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: 'success',
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
+
+export const get_author_followers = async ({
+    user_token,
+    authorID,
+    paginationIndex,
+}: {
+    user_token?: string;
+    authorID: string;
+    paginationIndex?: number;
+}) => {
+    return await api_base_url
+        .get(
+            `users/${authorID}/followers?pagination_index=${
+                paginationIndex || 0
+            }`,
+            {
+                headers: {
+                    'x-access-token': user_token ? user_token : '',
+                },
+            },
+        )
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: [...res?.data?.response],
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
+export const get_author_following = async ({
+    user_token,
+    authorID,
+    paginationIndex,
+}: {
+    user_token?: string;
+    authorID: string;
+    paginationIndex?: number;
+}) => {
+    return await api_base_url
+        .get(
+            `users/${authorID}/following?pagination_index=${
+                paginationIndex || 0
+            }`,
+            {
+                headers: {
+                    'x-access-token': user_token ? user_token : '',
+                },
+            },
+        )
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: [...res?.data?.response],
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
+export const get_author_blogs = async ({
+    user_token,
+    authorID,
+    paginationIndex,
+}: {
+    user_token?: string;
+    authorID: string;
+    paginationIndex?: number;
+}) => {
+    return await api_base_url
+        .get(
+            `users/${authorID}/blogs?pagination_index=${paginationIndex || 0}`,
+            {
+                headers: {
+                    'x-access-token': user_token ? user_token : '',
+                },
+            },
+        )
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: [...res?.data?.response],
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
+export const get_author_info = async ({
+    user_token,
+    authorID,
+}: {
+    user_token?: string;
+    authorID: string;
+}) => {
+    return await api_base_url
+        .get(`users/${authorID}`, {
+            headers: {
+                'x-access-token': user_token ? user_token : '',
+            },
+        })
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: { ...res?.data?.response },
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
+export const get_authors = async ({
+    user_token,
+    search,
+    paginationIndex,
+}: {
+    user_token?: string;
+    search: string;
+    paginationIndex?: number;
+}) => {
+    return await api_base_url
+        .get(
+            `users?search=${search || ''}&pagination_index=${
+                paginationIndex || 0
+            }`,
+            {
+                headers: {
+                    'x-access-token': user_token ? user_token : '',
+                },
+            },
+        )
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: [...res?.data?.response],
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
