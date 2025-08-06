@@ -102,7 +102,12 @@ export default function InfoPage() {
 
   return (
     <div className="info-page-container">
-      {showSpinner && <p>loading...</p>}
+      {showSpinner && 
+                <div className="overlay-spinner">
+                <div className="spinner" />
+                <p>Loading...</p>
+              </div>
+      }
 
       {!hide_back_btn && (
         <button className="back-button" onClick={() => navigate(-1)}>

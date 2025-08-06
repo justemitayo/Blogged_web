@@ -158,7 +158,10 @@ const send_mail = no_double_clicks({
 
   return (
     <div className='account-popup'>
-    {showSpinner && <div>Loading...</div>}
+    {showSpinner && <div className="overlay-spinner">
+          <div className="spinner" />
+          <p>Loading...</p>
+        </div>}
       {step === 'signup' ? (
         <form className='popup-component'>
           {

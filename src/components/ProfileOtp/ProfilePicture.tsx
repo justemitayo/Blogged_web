@@ -11,7 +11,6 @@ import { error_handler } from '../../utils/Error_Handler/Error_Handler';
 import { useNavigate } from 'react-router-dom';
 import { saveString } from '../../config/domain/Storage';
 import { strings } from '../../config/domain/Strings';
-import { query_id } from '../../config/hook/Query_ID/Query_ID';
 
 
 
@@ -148,7 +147,10 @@ const ProfilePicture = ({ setStep, email, password, username}:props) => {
 
   return (
     <div className='profile-picture'>
-         {showSpinner && <p className="spinner">Uploading...</p>}
+         {showSpinner &&         <div className="overlay-spinner">
+          <div className="spinner" />
+          <p>Uploading...</p>
+        </div>}
       <div className='backspace'>
         <img alt='' src={back} onClick={() => navigate(-1)} style={{width:'1.25rem', height:'1.25rem'}}/>
       </div>

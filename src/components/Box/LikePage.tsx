@@ -69,9 +69,10 @@ const LikePage = () => {
 
       {/* Loading Spinner */}
       {(!bid || isLoading) && (
-        <div style={{ textAlign: 'center', marginTop: 50 }}>
-          <p>Loading...</p>
-        </div>
+        <div className="overlay-spinner">
+        <div className="spinner" />
+        <p>Loading...</p>
+      </div>
       )}
 
       {/* Error State */}

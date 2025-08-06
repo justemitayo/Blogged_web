@@ -7,7 +7,7 @@ import { high_nums_converter } from '../../utils/High_Nums_Converter/High_Nums_C
 import { shorten_text } from '../../utils/Shorten_Text/Shorten_Text'
 import { http_link_fix } from '../../utils/HTTP_Link_Fix/HTTP_Link_Fix'
 import {INTF_Tag } from '../../Interface/Tags'
-
+import verify from '../../Assets/icon/Verified_Icon.png'
 
 
 interface BlogCardProps {
@@ -26,7 +26,7 @@ const Box: FunctionComponent<BlogCardProps>= ({blog_post, index, tags}) => {
 
   const handleAuthorClick = (e: React.MouseEvent) => {
     e.stopPropagation()
-    navigate('/author', { state: { bid: blog_post?.bid } });
+    navigate(`/author/${blog_post?.aid}`, { state: { bid: blog_post?.bid } });
 
   }
 
@@ -54,7 +54,17 @@ const Box: FunctionComponent<BlogCardProps>= ({blog_post, index, tags}) => {
         <div className='box-content'>
           <h3>  {shorten_text({ text: blog_post?.title as string, limit: 63 })}</h3>
           <div className='box-section'>
-            <p className='p' onClick={handleAuthorClick}>{`By: ${shorten_text({ text: blog_post?.author as string, limit: 17 })}`}</p>
+            <p className='p' onClick={handleAuthorClick}>
+              {`By: ${shorten_text({ text: blog_post?.author as string, limit: 17 })}`}
+              {blog_post?.averified &&                 
+                <img
+                  src={verify}
+                  alt="verified"
+                  width={16}
+                  height={16}
+                  className="ap_verified_icon"
+                />}
+            </p>
             {tags[(first_tag as number) || 0]?.tag_name && (
                 <p className='pp'>{tags[(first_tag as number) || 0]?.tag_name}</p>
             )}

@@ -143,7 +143,11 @@ const Otp = () => {
 
   return (
     <div className='verify'>
-         {showSpinner && <p className="spinner">Verifying...</p>}
+         {showSpinner &&
+                  <div className="overlay-spinner">
+                  <div className="spinner" />
+                  <p>Verifying...</p>
+                </div>}
       <h4>Let's verify your Email</h4>
       <div style={{display:'flex', justifyContent:'center',alignItems:'center',placeItems:"center"}}>
         <span style={{color:"rgb(117, 110, 110)"}} >Please input the One-Time-Password (OTP) sent to your Email Address.</span>

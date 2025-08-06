@@ -494,7 +494,7 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
           </span>
           {author_fol?.verified && (
             <img
-              src="/images/icons/Verified_Icon.png"
+              src="../../Assets/icon/Verified_Icon.png"
               alt="verified"
               style={{
                 width: 16,

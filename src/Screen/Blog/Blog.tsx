@@ -296,7 +296,7 @@ const Blog = () => {
   const nav_to_authors_page = no_double_clicks({
     execFunc: () => {
       if (blogInfo?.author !== 'Not Found') {
-        navigate('/authors', { state: { aid: blogInfo?.a_id } });
+        navigate(`/author/${blogInfo?.a_id}`, { state: { aid: blogInfo?.a_id } });
       }
     },
   });
@@ -329,6 +329,10 @@ const Blog = () => {
 
   return (
     <div className='blog'>
+      {showSpinner &&  <div className="overlay-spinner">
+          <div className="spinner" />
+          <p>Loading...</p>
+        </div>}
       <img src={back} alt='' className='back' onClick={()=> navigate(-1)} />
       {!isLoading && !blogData?.error && !showSpinner && (
         <>
