@@ -1,0 +1,231 @@
+.ap_main {
+  background-color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
+  padding: 1rem;
+}
+
+.ap_back_btn {
+  margin-left: 22px;
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+
+.ap_container {
+  padding: 0 5vw;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ap_profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.ap_dp_container {
+  border-radius: 100px;
+  padding: 3px;
+  border: 2px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ap_dp {
+  border-radius: 100px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.ap_stats {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.ap_stat_item {
+  text-align: center;
+  cursor: pointer;
+}
+
+.ap_txt_val {
+  font-family: Urbanist_600;
+  font-size: 18px;
+  color: black;
+}
+
+.ap_txt_desc {
+  font-family: Urbanist_500;
+  font-size: 15px;
+  color: grey;
+}
+
+.ap_username_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 22px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ap_username_col {
+  flex: 1;
+  min-width: 200px;
+}
+
+.ap_username {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ap_username_txt {
+  font-size: 18px;
+}
+
+.ap_verified_icon {
+  margin-left: 5px;
+}
+
+.ap_joined {
+  margin-top: 5px;
+  font-size: 16px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ap_txt_label {
+  font-weight: 500;
+  color: #444;
+  margin-right: 4px;
+}
+
+.ap_txt_value {
+  font-weight: 300;
+  color: #000;
+}
+
+.ap_blog_title {
+  font-family: OpenSans_700;
+  font-size: 24px;
+  color: #222;
+  margin: 15px 22px 10px;
+}
+
+.ap_blog_list {
+  padding: 0 5vw;
+  overflow-y: auto;
+  max-height: calc(100vh - 450px);
+}
+
+.ap_no_posts {
+  text-align: center;
+  margin-top: 100px;
+  font-family: Urbanist_500;
+  font-size: 16px;
+  color: #000;
+}
+
+.ap_error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ap_error_text {
+  font-family: Urbanist_500;
+  font-size: 15px;
+  color: orange;
+  text-align: center;
+  max-width: 200px;
+  margin-bottom: 10px;
+}
+
+.ap_error_msg {
+  font-family: Urbanist_500;
+  font-size: 13px;
+  color: red;
+  text-align: center;
+  max-width: 200px;
+  margin-bottom: 10px;
+}
+
+.ap_refresh_btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ap_more {
+  text-align: center;
+  margin: 10px 0;
+  font-family: OpenSans_400;
+  color: #222;
+}
+.text-divider {
+  border: 2px solid black;
+  margin-right: 1rem;
+}
+
+/* ---------- Desktop Styles ---------- */
+@media screen and (min-width: 768px) {
+  .ap_profile {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ap_dp_container {
+    flex-shrink: 0;
+  }
+
+  .ap_stats {
+    justify-content: flex-start;
+    gap: 40px;
+  }
+
+  .ap_username_row {
+    margin: 20px 0;
+    justify-content: space-between;
+  }
+
+  .ap_blog_list {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+      overflow-y: auto; */
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      width: 100%;
+      overflow-y:auto ;
+      max-height: calc(100vh - 500px);
+  }
+
+  .ap_blog_title {
+    font-size: 26px;
+    margin: 20px 0 15px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .ap_container {
+    max-width: 1400px;
+    padding: 0 4vw;
+  }
+
+  .ap_blog_title {
+    font-size: 28px;
+  }
+}

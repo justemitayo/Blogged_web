@@ -54,6 +54,7 @@ const {
 data: authorsBlog,
 isFetchingNextPage,
 refetch,
+fetchNextPage,
 hasNextPage,
 isLoading: isAuthorsBlogLoading,
 isError,
@@ -561,7 +562,12 @@ const authorBlogsList = authorsBlog?.pages?.flatMap((p: any) => p.data) ?? [];
                   />
                 ))}
                 {hasNextPage && (
+                  <>
+                    <button onClick={() => fetchNextPage()}>
+                    Load More
+                  </button>
                   <p className="ap_more">{isFetchingNextPage ? 'Loading more...' : ''}</p>
+                  </>
                 )}
               </>
             )}

@@ -20,6 +20,7 @@ import { INTF_Advert } from './Interface/Adverts';
 import LikePage from './components/Box/LikePage';
 import FollowerPage from './Screen/FollowerPage/FollowerPage';
 import AuthorsPage from './Screen/AuthorsPage/AuthorsPage';
+import Profile from './Screen/ProfilePage/Profile';
 
 
 
@@ -95,9 +96,11 @@ function App() {
         <Route path='/otp' element={<Otp />}/>
         <Route path='/blogPost/:bid' element={<Blog />}/>
         <Route path="/likes/:bid" element={<LikePage/>} />
-        
         <Route path="/author/:aid/followers" element={<FollowerPage />} />
         <Route path="/author/:aid" element={<AuthorsPage />} />
+
+        <Route path="/profile" element={<Profile />} />
+
        </Routes>
        </div>
     </BrowserRouter>
