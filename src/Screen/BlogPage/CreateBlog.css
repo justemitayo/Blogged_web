@@ -1,0 +1,94 @@
+.cb-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  height: calc(100vh - 6.5rem);
+  box-sizing: border-box;
+}
+
+.cb-m-wt {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.cb-m-wt2 {
+  font-size: 1rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 40px;
+  line-height: 1.5;
+  padding: 0 10px;
+}
+
+.cb-button {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.cb-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.overlay-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #ddd;
+  border-top-color: red;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive for smaller devices */
+@media (max-width: 600px) {
+  .cb-m-wt {
+    font-size: 1.5rem;
+  }
+
+  .cb-m-wt2 {
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+  }
+
+  .cb-button {
+    font-size: 0.95rem;
+    padding: 10px 16px;
+  }
+}

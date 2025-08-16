@@ -1,0 +1,127 @@
+.blogdp-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 7rem);
+  background: #f9f9f9;
+  font-family: Arial, sans-serif;
+  padding: 1rem;
+}
+
+.blogdp-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.draft-btn {
+  background: transparent;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 8rem;
+  height: 1.7rem;
+  place-content: center;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+.draft-btn:hover {
+  transform: scale(1.5);
+}
+
+.draft-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.blogdp-header {
+  padding: 0 24px;
+  margin-top: 10px;
+}
+
+.blogdp-header h1 {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.blogdp-header p {
+  font-size: 14px;
+  color: #555;
+}
+
+.blogdp-editor {
+  flex: 1;
+  padding: 16px 24px;
+}
+
+.blogdp-editor textarea {
+  display: block;              /* ensure it's not flex */
+  box-sizing: border-box;      /* height includes padding */
+  width: 100%;
+  height: 300px;               /* or min-height if you prefer */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none;
+  font-size: 15px;
+  line-height: 1.5;            /* keep text line height normal */
+  text-align: left;            /* horizontal alignment */
+  outline: none;
+}
+
+.blogdp-editor textarea:focus {
+  border-color: black;
+}
+
+.blogdp-footer {
+  padding: 16px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.full {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.upload-btn {
+  background: black;
+  color: white;
+}
+
+.upload-btn:hover {
+  background: #0056b3;
+}
+
+.upload-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .blogdp-editor textarea {
+    height: 400px;
+  }
+
+  .blogdp-header h1 {
+    font-size: 28px;
+  }
+}

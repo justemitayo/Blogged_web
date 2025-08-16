@@ -16,7 +16,6 @@ const FollowerPage = () => {
   const is_following = (location.state as any)?.is_following ?? false;
   const navigate = useNavigate()
 
-  const showSpinner = false;
   const [folData, setFolData] = useState<INTF_AuthorDesc[]>([]);
 
   const user_info = useUserInfoStore().user_info
@@ -62,6 +61,8 @@ const FollowerPage = () => {
     enabled: Boolean(aid),
   });
   
+  const showSpinner = isLoading && !data;
+
 
 
   useEffect(() => {

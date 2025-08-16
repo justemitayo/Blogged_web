@@ -21,6 +21,11 @@ import LikePage from './components/Box/LikePage';
 import FollowerPage from './Screen/FollowerPage/FollowerPage';
 import AuthorsPage from './Screen/AuthorsPage/AuthorsPage';
 import Profile from './Screen/ProfilePage/Profile';
+import CreateBlog from './Screen/BlogPage/CreateBlog';
+import BlogTitle from './Screen/BlogPage/Blog-title/BlogTitle';
+import BlogTagPage from './Screen/BlogPage/BlogTag/BlogTag';
+import BlogDp from './Screen/BlogPage/BlogDp/BlogDp';
+import BlogMessage from './Screen/BlogPage/BlogMessage/BlogMessage';
 
 
 
@@ -94,10 +99,21 @@ function App() {
         <Route path='/info' element={ <InfoPage />} />
         <Route path='/error' element={<ErrorPage />}/>
         <Route path='/otp' element={<Otp />}/>
+
         <Route path='/blogPost/:bid' element={<Blog />}/>
+
         <Route path="/likes/:bid" element={<LikePage/>} />
+
         <Route path="/author/:aid/followers" element={<FollowerPage />} />
         <Route path="/author/:aid" element={<AuthorsPage />} />
+
+        <Route path='/createblog' element={<CreateBlog />}/>
+        <Route path='/blog-title' element={<BlogTitle />} />
+        <Route path='/blog-tags' element={<BlogTagPage />} />
+        <Route path='/blogdp' element={<BlogDp />} />
+        <Route path='/blog-message' element={<BlogMessage />} />
+        
+        
 
         <Route path="/profile" element={<Profile />} />
 
@@ -108,5 +124,7 @@ function App() {
 }
 
 //problem with likePage we need it to update once we click it now update after a refresh
+//text area in the blog-message need to start from the top
+
 
 export default App;

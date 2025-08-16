@@ -19,7 +19,7 @@ import { INTF_BlogPost } from '../../Interface/Blog_Post'
 import Box from '../../components/Box/Box'
 
 const Profile = () => {
-  const showSpinner = false
+
   const navigate = useNavigate();
 
   const user_data = useUserDataStore().user_data;
@@ -58,6 +58,8 @@ const Profile = () => {
         staleTime: 180000,
         enabled: Boolean(user_info?.uid!),
   });
+
+    const showSpinner = isAuthorsBlogLoading && !authorsBlog;
   
   const edit_profile = () => {
     navigate('setting')
