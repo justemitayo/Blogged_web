@@ -26,6 +26,7 @@ import BlogTitle from './Screen/BlogPage/Blog-title/BlogTitle';
 import BlogTagPage from './Screen/BlogPage/BlogTag/BlogTag';
 import BlogDp from './Screen/BlogPage/BlogDp/BlogDp';
 import BlogMessage from './Screen/BlogPage/BlogMessage/BlogMessage';
+import SettingPage from './Screen/Settings/SettingPage/SettingPage';
 
 
 
@@ -117,12 +118,19 @@ function App() {
 
         <Route path="/profile" element={<Profile />} />
 
+        <Route path="/setting" element={<SettingPage />} />
+
+
+
+
+
        </Routes>
        </div>
     </BrowserRouter>
   );
 }
 
+//the otp screen... the solution is unknown for now 
 //problem with likePage we need it to update once we click it now update after a refresh
 //text area in the blog-message need to start from the top
 
