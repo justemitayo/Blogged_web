@@ -3,7 +3,7 @@ import back from '../../Assets/icon/Back_Arrow.png'
 import noImage from '../../Assets/Images/No_Blog_Image.png'
 import message from '../../Assets/svg/message.svg'
 import notLiked from '../../Assets/svg/notLiked.svg'
-import use from '../../Assets/icon/default_user_dark.jpg'
+import use from '../../Assets/icon/default_user_dp_light.jpg'
 import comment from '../../Assets/svg/comment.svg'
 import edit from '../../Assets/svg/edit.svg';
 import deletes from '../../Assets/svg/delete.svg'

@@ -10,7 +10,7 @@ import { update_author_followers } from '../../utils/Update_Author_Followers/Upd
 import { no_double_clicks } from '../../utils/no_double_click/no_double_clicks';
 import { http_link_fix } from '../../utils/HTTP_Link_Fix/HTTP_Link_Fix';
 import './BlogLikes.css'
-import  UserDp from '../../Assets/icon/default_user_dark.jpg'
+import  UserDp from '../../Assets/icon/default_user_dp_light.jpg'
 import verified from '../../Assets/icon/Verified_Icon.png'
 import { shorten_text } from '../../Shorten_Text/Shorten_Text';
 import { high_nums_converter } from '../../utils/High_Nums_Converter/High_Nums_Converter';

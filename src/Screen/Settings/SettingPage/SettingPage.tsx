@@ -9,8 +9,8 @@ import { mongo_date_converter_1 } from "../../../utils/Mongo_Date_Converter/Mong
 import { profile_menu_1, profile_menu_2, profile_menu_3, profile_menu_4, profile_menu_5 } from "../../../data/Profile_Menu/Profile_Menu";
 import { useUserDataStore } from "../../../store/User_Data.store";
 import { useUserInfoStore } from "../../../store/User_Info.store";
-import profile from '../../../Assets/icon/default_user_dark.jpg'
-
+import profile from '../../../Assets/icon/default_user_dp_light.jpg'
+import verifys from '../../../Assets/icon/Verified_Icon.png'
 const SettingsPage: React.FC = () => {
   const showSpinner =false;
 
@@ -39,8 +39,8 @@ const SettingsPage: React.FC = () => {
             {shorten_text({ text: userData?.username || "", limit: 22 })}
             {userData?.verified && (
               <img
-                src="/images/icons/Verified_Icon.png"
-                alt="Verified"
+                src={verifys}
+                alt=""
                 className="verified-icon"
               />
             )}

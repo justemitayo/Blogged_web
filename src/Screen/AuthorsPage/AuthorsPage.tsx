@@ -7,7 +7,7 @@ import { high_nums_converter } from '../../utils/High_Nums_Converter/High_Nums_C
 import { shorten_text } from '../../Shorten_Text/Shorten_Text'
 import { getCustomTimeAgo } from '../../utils/Time_Converter/Time_Converter'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import dpUser from '../../Assets/icon/default_user_dark.jpg'
+import dpUser from '../../Assets/icon/default_user_dp_light.jpg'
 import { useInfiniteQuery, useMutation, useQueries, useQueryClient } from '@tanstack/react-query'
 import { query_id } from '../../config/hook/Query_ID/Query_ID'
 import { follow_author, get_author_blogs, get_author_info, unfollow_author } from '../../config/hook'

@@ -5,13 +5,13 @@ export const profile_menu_1: INTF_ProfileMenu[] = [
   {
     id: 1,
     name: "Change Username",
-    route: "/profile/change-username",
+    route: "/setting/change-username",
     state: {}
   },
   {
     id: 2,
     name: "Change Display Picture",
-    route: "/profile/update-dp",
+    route: "/setting/update-dp",
     state: {}
   },
 ];
@@ -20,7 +20,7 @@ export const profile_menu_2: INTF_ProfileMenu[] = [
   {
     id: 1,
     name: "Verify Email",
-    route: "/profile/verify-email",
+    route: "/otp",
     state: {}
   },
 ];
@@ -29,13 +29,13 @@ export const profile_menu_3: INTF_ProfileMenu[] = [
   {
     id: 1,
     name: "Send Feedback",
-    route: "/profile/feedback",
+    route: "/setting/feedback",
     state: {}
   },
   {
     id: 2,
     name: "Suggest Tag",
-    route: "/profile/suggest-tag",
+    route: "/setting/suggest-tag",
     state: {}
   },
 ];
@@ -44,7 +44,7 @@ export const profile_menu_4: INTF_ProfileMenu[] = [
   {
     id: 1,
     name: "Change Password",
-    route: "/profile/change-password",
+    route: "/setting/change-password",
     state: {}
   },
   {
@@ -75,7 +75,7 @@ export const profile_menu_5: INTF_ProfileMenu[] = [
   {
     id: 1,
     name: "Find Authors",
-    route: "/authors/find",
+    route: "/setting/find-author",
     state: {}
   },
 ];

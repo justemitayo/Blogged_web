@@ -242,6 +242,59 @@ export const forgot_password = async ({ email }: { email: string }) => {
         });
 };
 
+export const change_password = async ({
+    user_token,
+    oldPassword,
+    newPassword,
+}: {
+    user_token: string;
+    oldPassword: string;
+    newPassword: string;
+}) => {
+    return await api_base_url
+        .patch('users/resetpassword', {
+            oldpassword: oldPassword,
+            newpassword: newPassword,
+            headers: {
+                'x-access-token': user_token,
+            },
+        })
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: 'success',
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
+
 export const delete_account = async ({
     user_token,
 }: {
@@ -347,6 +400,55 @@ export const follow_author = async ({
     return await api_base_url
         .patch('users/follow', {
             aid: authorID,
+            headers: {
+                'x-access-token': user_token,
+            },
+        })
+        ?.catch(err => {
+            return {
+                error: true,
+                data: err?.message,
+            };
+        })
+        ?.then((res: any) => {
+            if (res?.status === 'error') {
+                return {
+                    error: true,
+                    data: res?.data,
+                };
+            } else {
+                if (res?.data?.status === 'success') {
+                    return {
+                        error: false,
+                        data: 'success',
+                    };
+                } else if (res?.data?.status === 'error') {
+                    return {
+                        error: true,
+                        data: `Error: ${error_translator({
+                            code: res?.data?.code,
+                        })}`,
+                    };
+                } else {
+                    return {
+                        error: true,
+                        data: 'An error occured. Please check your Internet Connectivity and try again!',
+                    };
+                }
+            }
+        });
+};
+
+export const update_username = async ({
+    user_token,
+    username,
+}: {
+    user_token: string;
+    username: string;
+}) => {
+    return await api_base_url
+        .patch('users/updateusername', {
+            username: username,
             headers: {
                 'x-access-token': user_token,
             },

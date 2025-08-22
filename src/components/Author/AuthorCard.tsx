@@ -1,29 +1,25 @@
 import React, { FunctionComponent } from 'react'
 import { INTF_AuthorDesc } from '../../Interface/Author_Desc';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { useUserInfoStore } from '../../store/User_Info.store';
 import { follow_author, unfollow_author } from '../../config/hook';
 import { query_id } from '../../config/hook/Query_ID/Query_ID';
-import { useUserInfoStore } from '../../store/User_Info.store';
 import { INTF_UserData } from '../../Interface/User_Data';
 import { update_author_followers } from '../../utils/Update_Author_Followers/Update_Author_Followers';
 import { no_double_clicks } from '../../utils/no_double_click/no_double_clicks';
-import { useNavigate } from 'react-router-dom';
 import { http_link_fix } from '../../utils/HTTP_Link_Fix/HTTP_Link_Fix';
 import { shorten_text } from '../../Shorten_Text/Shorten_Text';
 import { high_nums_converter } from '../../utils/High_Nums_Converter/High_Nums_Converter';
-import './AuthorFol.css'
 import light from '../../Assets/icon/default_user_dp_light.jpg'
 import verify from "../../Assets/icon/Verified_Icon.png"
 
-
-interface AuthorFolProps {
+interface AuthorCardProps {
   author_fol: INTF_AuthorDesc;
-  author_id: string;
-  is_following?: boolean;
-  blog_id?: string;
+
 }
 
-const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is_following, blog_id}) => {
+const AuthorCard: FunctionComponent<AuthorCardProps> = ({ author_fol}) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate()
 
@@ -35,10 +31,11 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
     onMutate: async() => {
        await queryClient.cancelQueries({ queryKey: query_id({ id: author_fol?.uid ?? '' }).user_with_id, });
        await queryClient.cancelQueries({  queryKey: query_id({ id:user_info?.uid }).user_with_id, });
+       await queryClient.cancelQueries({  queryKey: query_id({}).authors });
   
        // The Person you are following
        const oldFollowedUser = queryClient.getQueryData<{ data: INTF_UserData }>(
-        query_id({ id: author_fol?.uid as string }).user_with_id
+        query_id({ id: author_fol?.uid! }).user_with_id
       );
   
        
@@ -51,7 +48,7 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
             followed: true,
           },
         };
-        queryClient.setQueryData(query_id({ id: author_fol?.uid as string}).user_with_id, newFollowedUser);
+        queryClient.setQueryData(query_id({ id: author_fol?.uid!}).user_with_id, newFollowedUser);
       }
   
       // Update current user cache
@@ -69,34 +66,13 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
         queryClient.setQueryData(query_id({ id: user_info?.uid }).user_with_id, newCurrentUser);
       }
   
-      // Update blog likes list
-      if(blog_id) {
-        await queryClient.cancelQueries({ queryKey: query_id({ id: blog_id }).blog_with_id_likes,})
-  
-        const oldLikesData = queryClient.getQueryData<{
-          pageParams: any[];
-          pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-        }>(query_id({ id: blog_id }).blog_with_id_likes);
-        
-        if (oldLikesData) {
-          const newLikesData = update_author_followers({
-            old_data: oldLikesData,
-            increase: true,
-            blog_id: author_fol?.uid!,
-          });
-          queryClient.setQueryData(query_id({ id: blog_id }).blog_with_id_likes, newLikesData);
-        }
-      }
+
   
       //update followers/following
-  
-      if (is_following) {
-        await queryClient.cancelQueries({ queryKey:query_id({ id: author_id }).author_followings_with_id,});
-  
         const oldFollowData = queryClient.getQueryData<{
           pageParams: any[];
           pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-        }>(query_id({ id: author_id }).author_followings_with_id,);
+        }>(query_id({}).authors,);
   
         if (oldFollowData) {
           const newFollowData = update_author_followers({
@@ -104,25 +80,8 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
             increase: true,
             blog_id: author_fol?.uid!,
           });
-          queryClient.setQueryData(query_id({ id: author_id }).author_followings_with_id, newFollowData);
+          queryClient.setQueryData(query_id({}).authors, newFollowData);
         }
-      } else {
-        await queryClient.cancelQueries({ queryKey:query_id({ id: author_id }).author_followers_with_id,});
-  
-        const oldFollowerData = queryClient.getQueryData<{
-          pageParams: any[];
-          pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-        }>(query_id({ id: author_id }).author_followers_with_id,);  
-        
-        if (oldFollowerData) {
-          const newFollowerData = update_author_followers({
-            old_data: oldFollowerData,
-            increase: true,
-            blog_id: author_fol?.uid!,
-          });
-          queryClient.setQueryData(query_id({ id: author_id }).author_followers_with_id, newFollowerData);
-        }
-      }
     }, 
 
     onSuccess: () => {
@@ -133,6 +92,7 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
       await queryClient.cancelQueries({ queryKey: query_id({ id: author_fol?.uid! }).user_with_id,})
       await queryClient.cancelQueries({  queryKey:query_id({ id:user_info?.uid })
       .user_with_id, });
+      await queryClient.cancelQueries({  queryKey: query_id({}).authors });
   
       //the person you are following
 
@@ -165,33 +125,12 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
         queryClient.setQueryData(query_id({ id: user_info?.uid }).user_with_id, newCurrentUser);
       }
   
-     // Update blog likes list
-     if(blog_id) {
-      await queryClient.cancelQueries({ queryKey: query_id({ id: blog_id }).blog_with_id_likes,})
-  
-      const oldLikesData = queryClient.getQueryData<{
-        pageParams: any[];
-        pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-      }>(query_id({ id: blog_id }).blog_with_id_likes);
-      
-      if (oldLikesData) {
-        const newLikesData = update_author_followers({
-          old_data: oldLikesData,
-          increase: false,
-          blog_id: author_fol?.uid!,
-        });
-        queryClient.setQueryData(query_id({ id: blog_id }).blog_with_id_likes, newLikesData);
-      }
-    }
-  
-    //update follower/following
-    if (is_following) {
-      await queryClient.cancelQueries({ queryKey:query_id({ id: author_id }).author_followings_with_id,});
+
   
       const oldFollowData = queryClient.getQueryData<{
         pageParams: any[];
         pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-      }>(query_id({ id: author_id }).author_followings_with_id,);
+      }>(query_id({}).authors,);
   
       if (oldFollowData) {
         const newFollowData = update_author_followers({
@@ -199,25 +138,8 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
           increase: false,
           blog_id: author_fol?.uid!,
         });
-        queryClient.setQueryData(query_id({ id: author_id }).author_followings_with_id, newFollowData);
+        queryClient.setQueryData(query_id({}).authors, newFollowData);
       }
-    } else {
-      await queryClient.cancelQueries({ queryKey:query_id({ id: author_id }).author_followers_with_id,});
-  
-      const oldFollowerData = queryClient.getQueryData<{
-        pageParams: any[];
-        pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-      }>(query_id({ id: author_id }).author_followers_with_id,);  
-      
-      if (oldFollowerData) {
-        const newFollowerData = update_author_followers({
-          old_data: oldFollowerData,
-          increase: false,
-          blog_id: author_fol?.uid!,
-        });
-        queryClient.setQueryData(query_id({ id: author_id }).author_followers_with_id, newFollowerData);
-      }
-    }
     }
   })
   
@@ -228,6 +150,7 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
       await queryClient.cancelQueries({ queryKey: query_id({ id: author_fol?.uid! }).user_with_id,})
       await queryClient.cancelQueries({  queryKey:query_id({ id:user_info?.uid })
       .user_with_id, });
+      await queryClient.cancelQueries({  queryKey: query_id({}).authors });
 
       //the person you are following
       const oldFollowedUser = queryClient.getQueryData<{ data: INTF_UserData }>(
@@ -258,34 +181,12 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
         };
         queryClient.setQueryData(query_id({ id: user_info?.uid }).user_with_id, newCurrentUser);
       }
-  
-     // Update blog likes list
-     if(blog_id) {
-      await queryClient.cancelQueries({ queryKey: query_id({ id: blog_id }).blog_with_id_likes,})
-  
-      const oldLikesData = queryClient.getQueryData<{
-        pageParams: any[];
-        pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-      }>(query_id({ id: blog_id }).blog_with_id_likes);
-      
-      if (oldLikesData) {
-        const newLikesData = update_author_followers({
-          old_data: oldLikesData,
-          increase: false,
-          blog_id: author_fol?.uid!,
-        });
-        queryClient.setQueryData(query_id({ id: blog_id }).blog_with_id_likes, newLikesData);
-      }
-    }
-  
-    //update follower/following
-    if (is_following) {
-      await queryClient.cancelQueries({ queryKey:query_id({ id: author_id }).author_followings_with_id,});
+
   
       const oldFollowData = queryClient.getQueryData<{
         pageParams: any[];
         pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-      }>(query_id({ id: author_id }).author_followings_with_id,);
+      }>(query_id({}).authors,);
   
       if (oldFollowData) {
         const newFollowData = update_author_followers({
@@ -293,25 +194,8 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
           increase: false,
           blog_id: author_fol?.uid!,
         });
-        queryClient.setQueryData(query_id({ id: author_id }).author_followings_with_id, newFollowData);
+        queryClient.setQueryData(query_id({ }).authors, newFollowData);
       }
-    } else {
-      await queryClient.cancelQueries({ queryKey:query_id({ id: author_id }).author_followers_with_id,});
-  
-      const oldFollowerData = queryClient.getQueryData<{
-        pageParams: any[];
-        pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-      }>(query_id({ id: author_id }).author_followers_with_id,);  
-      
-      if (oldFollowerData) {
-        const newFollowerData = update_author_followers({
-          old_data: oldFollowerData,
-          increase: false,
-          blog_id: author_fol?.uid!,
-        });
-        queryClient.setQueryData(query_id({ id: author_id }).author_followers_with_id, newFollowerData);
-      }
-    }
     },
   
     onSuccess: () => {
@@ -321,6 +205,7 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
     onError: async() => {
       await queryClient.cancelQueries({ queryKey: query_id({ id: author_fol?.uid ?? '' }).user_with_id, });
       await queryClient.cancelQueries({  queryKey: query_id({ id:user_info?.uid }).user_with_id, });
+      await queryClient.cancelQueries({  queryKey: query_id({}).authors });
   
       const oldFollowedUser = queryClient.getQueryData<{ data: INTF_UserData }>(
        query_id({ id: author_fol?.uid as string }).user_with_id
@@ -354,34 +239,10 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
        queryClient.setQueryData(query_id({ id: user_info?.uid }).user_with_id, newCurrentUser);
      }
   
-     // Update blog likes list
-     if(blog_id) {
-       await queryClient.cancelQueries({ queryKey: query_id({ id: blog_id }).blog_with_id_likes,})
-  
-       const oldLikesData = queryClient.getQueryData<{
-         pageParams: any[];
-         pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-       }>(query_id({ id: blog_id }).blog_with_id_likes);
-       
-       if (oldLikesData) {
-         const newLikesData = update_author_followers({
-           old_data: oldLikesData,
-           increase: true,
-           blog_id: author_fol?.uid!,
-         });
-         queryClient.setQueryData(query_id({ id: blog_id }).blog_with_id_likes, newLikesData);
-       }
-     }
-  
-     //update followers/following
-  
-     if (is_following) {
-       await queryClient.cancelQueries({ queryKey:query_id({ id: author_id }).author_followings_with_id,});
-  
        const oldFollowData = queryClient.getQueryData<{
          pageParams: any[];
          pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-       }>(query_id({ id: author_id }).author_followings_with_id,);
+       }>(query_id({}).authors,);
   
        if (oldFollowData) {
          const newFollowData = update_author_followers({
@@ -389,25 +250,8 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
            increase: true,
            blog_id: author_fol?.uid!,
          });
-         queryClient.setQueryData(query_id({ id: author_id }).author_followings_with_id, newFollowData);
+         queryClient.setQueryData(query_id({}).authors, newFollowData);
        }
-     } else {
-       await queryClient.cancelQueries({ queryKey:query_id({ id: author_id }).author_followers_with_id,});
-  
-       const oldFollowerData = queryClient.getQueryData<{
-         pageParams: any[];
-         pages: { data: INTF_AuthorDesc[]; error: boolean }[];
-       }>(query_id({ id: author_id }).author_followers_with_id,);  
-       
-       if (oldFollowerData) {
-         const newFollowerData = update_author_followers({
-           old_data: oldFollowerData,
-           increase: true,
-           blog_id: author_fol?.uid!,
-         });
-         queryClient.setQueryData(query_id({ id: author_id }).author_followers_with_id, newFollowerData);
-       }
-     } 
    }
   })
   
@@ -432,7 +276,7 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
     const nav_to_authors_page = no_double_clicks({
       execFunc: () => {
         if (author_fol?.username !== 'Not Found') {
-          navigate(`/author/${author_fol.uid}?blog_id=${blog_id}&like_id=${author_fol.uid}`);
+          navigate(`/author/${author_fol.uid}?f_aid=${author_fol.uid}&like_id=${author_fol.uid}`);
         }
       },
     });
@@ -534,4 +378,4 @@ const AuthorFol: FunctionComponent<AuthorFolProps> = ({ author_fol,author_id, is
   )
 }
 
-export default AuthorFol
+export default AuthorCard

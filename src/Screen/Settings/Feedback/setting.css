@@ -1,0 +1,153 @@
+/* Main container */
+.fp-main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 8.5rem);
+  padding: 2rem 2rem;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Back button wrapper */
+.fp-back {
+  /* margin-left: 22px;
+  margin-top: 50px;
+  margin-bottom: 28px; */
+  width: 2rem;
+  height: 2rem;
+}
+
+.fp-back-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #0073e6;
+  cursor: pointer;
+}
+.fp-back-btn:hover {
+  text-decoration: underline;
+}
+
+/* Title */
+.fp-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Subtitle */
+.fp-subtitle {
+  font-size: 1.125rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  max-width: 700px;
+}
+
+/* Textarea */
+.fp-input {
+  width: 95%;
+  max-width: 97%;
+  min-height: 30px;
+  padding: 1rem;
+  margin-right: 3rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  resize: vertical;
+}
+
+/* Button wrapper */
+.fp-button-wrapper {
+  margin-top: auto;
+  margin-bottom: 1rem;
+}
+
+/* Button */
+.fp-button {
+  width: 100%;
+  max-width: 100%;
+  height: 56px;
+  background-color: black;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.fp-button:hover:not(:disabled) {
+  background-color:red;
+}
+
+.fp-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .fp-main {
+    padding: 2rem;
+  }
+
+  .fp-title {
+    font-size: 1.5rem;
+  }
+
+  .fp-subtitle {
+    font-size:1.125rem;
+  }
+    .fp-button {
+    width: 100%;
+    height: 50px;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fp-main {
+    padding: 1.5rem;
+    height: calc(100vh - 5.2rem);
+  }
+
+
+  .fp-title {
+    font-size: 1.5rem;
+  }
+
+  .fp-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .fp-button {
+    width: 100%;
+    height: 50px;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fp-main {
+    padding: 2rem;
+  
+  }
+
+  .fp-title {
+    font-size: 1.25rem;
+  }
+
+  .fp-subtitle {
+    font-size: 0.9rem;
+  }
+  .fp-button {
+    max-width: 100%;
+    width: 100%;
+    height: 50px;
+    border-radius: 6px;
+  }
+
+}

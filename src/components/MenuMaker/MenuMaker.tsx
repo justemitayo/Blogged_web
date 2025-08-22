@@ -14,7 +14,7 @@ const MenuMaker: React.FC<MenuMakerProps> = ({ menu, bgColor }) => {
 
   const handleClick = (item: INTF_ProfileMenu) => {
     if (item.route) {
-      navigate(`/${item.route}`, { state: { ...item.state } });
+      navigate(item.route, { state: { ...item.state } });
     } else {
       navigate("/", { state: { ...item.state } });
     }

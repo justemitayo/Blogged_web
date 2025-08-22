@@ -2,7 +2,7 @@
   border: none;
   color: rgb(247, 239, 239);
   background-color: black;
-  width: max(25vw, 200px);
+  width: max(20vw, 200px);
   padding: 12px 0px;
   border-radius: 4px;
   cursor: pointer;
@@ -16,4 +16,9 @@
   color: black;
   background-color: white;
   transform: scale(1.08);
+}
+@media (max-width: 480px) {
+  .refresh-btn{
+    width: max(10vw, 100px);
+  }
 }

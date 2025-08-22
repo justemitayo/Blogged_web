@@ -27,6 +27,12 @@ import BlogTagPage from './Screen/BlogPage/BlogTag/BlogTag';
 import BlogDp from './Screen/BlogPage/BlogDp/BlogDp';
 import BlogMessage from './Screen/BlogPage/BlogMessage/BlogMessage';
 import SettingPage from './Screen/Settings/SettingPage/SettingPage';
+import Feedback from './Screen/Settings/Feedback/Feedback';
+import Tag from './Screen/Settings/Feedback/Tag';
+import Username from './Screen/Settings/Feedback/Username';
+import Password from './Screen/Settings/Feedback/Password';
+import ProfileSet from './Screen/Settings/Profile/ProfileSet';
+import FindAuthor from './Screen/FollowerPage/FindAuthor';
 
 
 
@@ -118,7 +124,14 @@ function App() {
 
         <Route path="/profile" element={<Profile />} />
 
+
         <Route path="/setting" element={<SettingPage />} />
+        <Route path="/setting/change-username" element={<Username />} />
+        <Route path="/setting/feedback" element={<Feedback />} />
+        <Route path="/setting/suggest-tag" element={<Tag />} />
+        <Route path="/setting/change-password" element={<Password />} />
+        <Route path="/setting/update-dp" element={<ProfileSet />} />
+        <Route path="/setting/find-author" element={<FindAuthor />} />
 
 
 

@@ -33,27 +33,7 @@ const ProfilePicture = ({ setStep, email, password, username}:props) => {
 
   const setUserInfo = useUserInfoStore().set_user_info
 
-    // const { mutate: update_dp_mutate } = useMutation({
-    //   mutationFn: update_display_picture,
-    //   onMutate: () => {
-    //     setDisableButton(true);
-    //     setShowSpinner(true);
-    //   },
-    //   onSettled: async (data) => {
-    //     setDisableButton(false);
-    //     setShowSpinner(false);
-    //     if (data?.error) {
-    //       error_handler({ 
-    //         navigate,
-    //         error_mssg: data?.data });
-    //     } else {
-    //       queryClient.invalidateQueries({
-    //         queryKey: query_id({ id: user_info.uid }).user_with_id,
-    //       });
-    //       setStep('otp')
-    //     }
-    //   }
-    // });
+
     const { mutate: sign_up_mutate } = useMutation({
       mutationFn: sign_up,
       onMutate: () => {

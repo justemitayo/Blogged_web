@@ -91,16 +91,18 @@ const BlogDp = () => {
 
   return (
     <div className='profile-pictures'>
-   {showSpinner &&         
+
+
+      <div className='backspaces'>
+        <img alt='' src={back} onClick={() => navigate(-1)} style={{width:'1.25rem', height:'1.25rem'}}/>
+      </div>
+
+      {showSpinner &&         
     <div className="overlay-spinner">
       <div className="spinner" />
       <p>Uploading...</p>
     </div>
     }
-
-      <div className='backspaces'>
-        <img alt='' src={back} onClick={() => navigate(-1)} style={{width:'1.25rem', height:'1.25rem'}}/>
-      </div>
 
 
       <div className='profile-picture-components'>

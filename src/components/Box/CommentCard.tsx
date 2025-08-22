@@ -136,7 +136,7 @@ const CommentCard: FunctionComponent<CommentCardProps> = ({comment}) => {
           <div className="comment-top">
             <img
               className="comment-avatar"
-              src={showDp ? http_link_fix({ http_link: comment?.dp_link ?? ''}) :  require('../../Assets/icon/default_user_dark.jpg') }
+              src={showDp ? http_link_fix({ http_link: comment?.dp_link ?? ''}) :  require('../../Assets/icon/default_user_dp_light.jpg') }
               alt="User"
             />
             <span className="comment-username">

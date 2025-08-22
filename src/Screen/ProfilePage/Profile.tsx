@@ -1,6 +1,6 @@
 import React from 'react'
 import './Profile.css'
-import dpUser from '../../Assets/icon/default_user_dark.jpg'
+import dpUser from '../../Assets/icon/default_user_dp_light.jpg'
 import verify from '../../Assets/icon/Verified_Icon.png'
 import back from '../../Assets/icon/Back_Arrow.png'
 import { useNavigate } from 'react-router-dom'
@@ -62,7 +62,7 @@ const Profile = () => {
     const showSpinner = isAuthorsBlogLoading && !authorsBlog;
   
   const edit_profile = () => {
-    navigate('setting')
+    navigate('/setting')
   }
   
   const open_followers = (e: React.MouseEvent) => {
@@ -83,13 +83,14 @@ const Profile = () => {
 
   return (
     <div className="ap_main">
+      <img alt='' src={back} className='back' onClick={() => navigate(-1)}/>
       {(showSpinner || !user_data.uid ) && (
         <div className="overlay-spinner">
           <div className="spinner" />
           <p>Loading...</p>
         </div>
       )}
-      <img alt='' src={back} className='back' onClick={() => navigate(-1)}/>
+      
 
     {Boolean(user_data.uid ) && (
       <div className="ap_container">
