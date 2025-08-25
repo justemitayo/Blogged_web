@@ -17,6 +17,8 @@ const SettingsPage: React.FC = () => {
   const userData = useUserDataStore().user_data
   const userInfo = useUserInfoStore().user_info
 
+  console.log("store user_data:", userData);
+
   return (
     <div className="settings-container">
       {showSpinner && <div className="overlay-spinner">Loading...</div>}

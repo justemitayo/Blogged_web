@@ -4,7 +4,7 @@ import { INTF_UserInfo } from "../Interface/User_Info";
 
 
 type State = {
-  user_info: INTF_UserInfo;
+  user_info: INTF_UserInfo | null;
 };
 
 type Action = {

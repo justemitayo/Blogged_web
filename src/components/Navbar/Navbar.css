@@ -1,4 +1,4 @@
-.navbar{
+.navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -6,13 +6,12 @@
   border: 1px solid rgb(29, 27, 27);
 }
 
-.navbar h2{
-  text-decoration: none;
-  color: rgb(29, 27, 27);
-  font-style: italic;
-  font-size: 2rem;
+.navbar img{
+  width: 5.5rem;
+  height: 5.5rem;
 }
-.navbar button{
+
+.navbar button {
   border: none;
   display: flex;
   align-items: center;
@@ -29,24 +28,83 @@
   border: 1px solid rgb(29, 27, 27);
   transition: transform 0.2s ease;
 }
+
 .navbar button:hover {
   color: white;
   background-color: rgb(29, 27, 27);
   transform: scale(1.05);
 }
 
+/* 🔹 Nav Links (desktop) */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
 
+.nav-links li a {
+  text-decoration: none;
+  color: rgb(29, 27, 27);
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
 
+.nav-links li a:hover {
+  color: gray;
+}
+
+/* 🔹 Hamburger (hidden on desktop) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: rgb(29, 27, 27);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* 🔹 Mobile Responsive */
 @media (max-width: 768px) {
-  .navbar{
+  .navbar {
     padding: 0rem 1rem 0rem 1rem;
   }
-  .navbar h2{
+
+  .navbar h2 {
     font-size: 1rem;
   }
-  .navbar button{
+
+  .navbar button {
     width: 60px;
-    height: 1rem;
-    border: none;
+    height: 1.5rem;
+    font-size: 0.75rem;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: white;
+    border: 1px solid rgb(29, 27, 27);
+    height: 0;
+    width: 200px;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+
+  .nav-links.active {
+    height: 150px;
+    padding: 1rem 0;
+  }
+
+  .hamburger {
+    display: flex;
   }
 }

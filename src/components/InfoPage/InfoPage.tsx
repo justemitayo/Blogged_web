@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { delete_account, delete_blog } from '../../config/hook';
 import { useUserInfoStore } from '../../store/User_Info.store';
@@ -32,7 +32,7 @@ export default function InfoPage() {
   const resetAll = () => {
     clear_user_info();
     queryClient.clear();
-    navigate('/auth', { replace: true });
+    navigate('/', { replace: true });
   };
 
   const { mutate: delete_account_mutate } = useMutation({
@@ -87,11 +87,14 @@ export default function InfoPage() {
         case 3:
           navigate('/', { replace: true });
           break;
-        case 4:
-          delete_account_mutate({ user_token: user_info.token || ''});
-          break;
-        case 5:
-          delete_blog_mutate({ user_token: user_info.token || '', blogID: current_blog_id  || ''});
+          case 4:
+            if (!user_info) return resetAll(); // or handle gracefully
+            delete_account_mutate({ user_token: user_info.token ?? ''});
+            break;
+          
+          case 5:
+            if (!user_info) return resetAll();
+            delete_blog_mutate({ user_token: user_info.token ?? '', blogID: current_blog_id || '' });
           break;
         default:
           navigate('/', { replace: true });
@@ -99,6 +102,17 @@ export default function InfoPage() {
       }
     },
   });
+
+    useEffect(() => {
+      let timer: NodeJS.Timeout;
+      if (showSpinner) {
+        timer = setTimeout(() => {
+          setShowSpinner(false);
+          setDisableButton(false);
+        }, 20000);
+      }
+      return () => clearTimeout(timer);
+    }, [showSpinner]);
 
   return (
     <div className="info-page-container">

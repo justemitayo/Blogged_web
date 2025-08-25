@@ -55,11 +55,10 @@ const Profile = () => {
             return undefined;
         },
         retry: 3,
-        staleTime: 180000,
-        enabled: Boolean(user_info?.uid!),
+        enabled: Boolean(user_info?.uid && user_info?.token),
   });
 
-    const showSpinner = isAuthorsBlogLoading && !authorsBlog;
+
   
   const edit_profile = () => {
     navigate('/setting')
@@ -81,15 +80,22 @@ const Profile = () => {
 
   const authorBlogsList = authorsBlog?.pages?.flatMap((p: any) => p.data) ?? [];
 
+  if (user_data === null) {
+    return (
+      <div className="overlay-spinner">
+        <div className="spinner" />
+        <p>Loading profile...</p>
+      </div>
+    );
+  }
+  
+  if (!user_data?.uid) {
+    return <p>No profile found</p>;
+  }
+
   return (
     <div className="ap_main">
       <img alt='' src={back} className='back' onClick={() => navigate(-1)}/>
-      {(showSpinner || !user_data.uid ) && (
-        <div className="overlay-spinner">
-          <div className="spinner" />
-          <p>Loading...</p>
-        </div>
-      )}
       
 
     {Boolean(user_data.uid ) && (

@@ -1,35 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './AccountPopup.css'
-import ProfilePicture from '../ProfileOtp/ProfilePicture';
 import { no_double_clicks } from '../../utils/no_double_click/no_double_clicks';
 import { useNavigate } from 'react-router-dom';
 import { useUserInfoStore } from '../../store/User_Info.store';
 import { useMutation } from '@tanstack/react-query';
 import { error_handler } from '../../utils/Error_Handler/Error_Handler';
 import { regex_email_checker } from '../../utils/Email_Checker/Email_Checker';
-import { sign_in, forgot_password } from '../../config/hook/user/User';
+import { sign_in, forgot_password, get_author_info } from '../../config/hook/user/User';
 import { saveString } from '../../config/domain/Storage';
 import { strings} from '../../config/domain/Strings';
-import Otp from '../ProfileOtp/Otp';
 import { info_handler } from '../../utils/Info_Handler/Info_Handler';
+import { useUserDataStore } from '../../store/User_Data.store';
 
 
 
 interface props{
-  setLoginPop: React.Dispatch<React.SetStateAction<boolean>>
+  setLoginPop: React.Dispatch<React.SetStateAction<boolean>>;
+  email: string;
+  setEmail:  React.Dispatch<React.SetStateAction<string>>;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  password: string 
+  username: string
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
 }
-const AccountPopup = ({setLoginPop}:props) => {
+const AccountPopup = ({setLoginPop, email, setEmail, password, setPassword, username, setUsername}:props) => {
   const[currState, setCurrState] = useState<'Login' | 'signup' | 'pass'>('Login');
-  const [step, setStep] = useState<'signup' | 'pic' |'otp' >('signup');
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [cPassword, setCPassword] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
   const [showSpinner, setShowSpinner] = useState(false);
   const [disableButton, setDisableButton] = useState(false);
 
   const setUserInfo = useUserInfoStore().set_user_info
+  const setUserData = useUserDataStore().set_user_data
 
   const { mutate: sign_in_mutate } = useMutation({
     mutationFn: sign_in,
@@ -52,7 +54,13 @@ const AccountPopup = ({setLoginPop}:props) => {
       const { token, uid, email_v } = data?.data;
       await saveString(strings.userToken, token);
       setUserInfo({ token, uid, email_v });
-      console.log({login_token: token})
+      const profileRes = await get_author_info({ user_token: token, authorID: uid });
+      console.log("profileRes:", profileRes); 
+
+      if (!profileRes.error) {
+        setUserData(profileRes.data); 
+        // profileRes.data has dp, username, createdAt, verified...
+      }
       setLoginPop(false);
       navigate('/', { replace: true });
     },
@@ -126,7 +134,8 @@ const send_mail = no_double_clicks({
         if (regex_email_checker({ email })) {
           if (password.length >= 6) {
             if (password === cPassword) {
-              setStep('pic')
+              setLoginPop(false)
+              navigate('/pic')
             } else {
               error_handler({
                 navigate,
@@ -154,6 +163,17 @@ const send_mail = no_double_clicks({
     },
   });
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (showSpinner) {
+      timer = setTimeout(() => {
+        setShowSpinner(false);
+        setDisableButton(false);
+      }, 20000);
+    }
+    return () => clearTimeout(timer);
+  }, [showSpinner]);
+
 
 
   return (
@@ -162,7 +182,6 @@ const send_mail = no_double_clicks({
           <div className="spinner" />
           <p>Loading...</p>
         </div>}
-      {step === 'signup' ? (
         <form className='popup-component'>
           {
             currState === 'Login' ? (
@@ -278,10 +297,6 @@ const send_mail = no_double_clicks({
             ) : null
           }
         </form>
-
-      ): step === 'pic' ? (<ProfilePicture setStep={setStep}  email={email}
-        username={username}
-        password={password} />): (<Otp />)}
     </div>
   )
 }

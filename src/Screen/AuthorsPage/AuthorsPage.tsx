@@ -432,14 +432,18 @@ execFunc: () => {
 const open_followers = (e: React.MouseEvent) => {
   e.stopPropagation();
   if (authorsData) {
-    navigate(`/author/${authorsData.data.uid}/followers?is_following=false`);
+    navigate(`/author/${authorsData.data.uid}/followers`, {
+      state: { is_following: false },
+    });
   }
 };
 
 const open_following = (e: React.MouseEvent) => {
   e.stopPropagation();
   if (authorsData) {
-    navigate(`/author/${authorsData.data.uid}/followers?is_following=true`);
+    navigate(`/author/${authorsData.data.uid}/followers`, {
+      state: { is_following: true },
+    });
   }
 };
 

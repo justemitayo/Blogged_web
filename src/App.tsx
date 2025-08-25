@@ -33,12 +33,18 @@ import Username from './Screen/Settings/Feedback/Username';
 import Password from './Screen/Settings/Feedback/Password';
 import ProfileSet from './Screen/Settings/Profile/ProfileSet';
 import FindAuthor from './Screen/FollowerPage/FindAuthor';
+import ProfilePicture from './components/ProfileOtp/ProfilePicture';
 
 
 
 function App() {
 
   const [loginPop, setLoginPop] = useState<boolean>(false);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState<string>('');
+
   const set_app_tags = useAppTagStore().set_app_tags
   const set_app_adverts = useAppAdvertstore().set_app_adverts
 
@@ -97,7 +103,13 @@ function App() {
 
   return (
     <BrowserRouter>
-        {loginPop ? <AccountPopup setLoginPop={setLoginPop}/> : <></>}
+        {loginPop ? 
+        <AccountPopup setLoginPop={setLoginPop}  
+          email={email} setEmail={setEmail}
+          password={password} setPassword={setPassword}
+          username={username} setUsername={setUsername}
+        /> 
+        : <></>}
        
        <div className='App'>
         <Navbar setLoginPop={setLoginPop}/>
@@ -106,6 +118,11 @@ function App() {
         <Route path='/info' element={ <InfoPage />} />
         <Route path='/error' element={<ErrorPage />}/>
         <Route path='/otp' element={<Otp />}/>
+        <Route path='/pic' element={<ProfilePicture 
+          email={email}
+          password={password}
+          username={username}
+        />}/>
 
         <Route path='/blogPost/:bid' element={<Blog />}/>
 

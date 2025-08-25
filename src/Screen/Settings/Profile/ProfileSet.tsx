@@ -34,6 +34,7 @@ const queryClient = useQueryClient();
             navigate,
             error_mssg: data?.data });
         } else {
+          if (!user_info) return;
           queryClient.invalidateQueries({
             queryKey: query_id({ id: user_info.uid }).user_with_id,
           });

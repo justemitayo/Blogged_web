@@ -6,22 +6,22 @@ import image from '../../Assets/svg/image.svg'
 import picture from '../../Assets/icon/default_user_dp_light.jpg'
 import { useUserInfoStore } from '../../store/User_Info.store';
 import { useMutation } from '@tanstack/react-query';
-import { sign_up } from '../../config/hook/user/User';
+import { get_author_info, sign_up } from '../../config/hook/user/User';
 import { error_handler } from '../../utils/Error_Handler/Error_Handler';
 import { useNavigate } from 'react-router-dom';
 import { saveString } from '../../config/domain/Storage';
 import { strings } from '../../config/domain/Strings';
+import { useUserDataStore } from '../../store/User_Data.store';
 
 
 
 interface props{
-  setStep: React.Dispatch<React.SetStateAction<"signup" | "pic" | "otp">>
   email: string;
   password:string;
   username: string
 }
 
-const ProfilePicture = ({ setStep, email, password, username}:props) => {
+const ProfilePicture = ({  email, password, username}:props) => {
 
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -32,6 +32,7 @@ const ProfilePicture = ({ setStep, email, password, username}:props) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const setUserInfo = useUserInfoStore().set_user_info
+  const setUserData = useUserDataStore().set_user_data
 
 
     const { mutate: sign_up_mutate } = useMutation({
@@ -57,6 +58,13 @@ const ProfilePicture = ({ setStep, email, password, username}:props) => {
     
           // Update global store
           setUserInfo({ token, uid, email_v });
+
+          const profileRes = await get_author_info({ user_token: token, authorID: uid });
+
+            if (!profileRes.error) {
+              setUserData(profileRes.data); 
+              // profileRes.data has dp, username, createdAt, verified...
+            }
     
           // Proceed to OTP step
           navigate('/otp')
@@ -107,22 +115,29 @@ const ProfilePicture = ({ setStep, email, password, username}:props) => {
 
   const submitSignUp = no_double_clicks({
     execFunc: () => {
-      if (!profilePicture) return;
-  
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
+      if (profilePicture) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          sign_up_mutate({
+            email,
+            username,
+            password,
+            displayPicture: reader.result as string,
+          });
+        };
+        reader.readAsDataURL(profilePicture);
+      } else {
+        // No profile picture, still sign up
         sign_up_mutate({
           email,
           username,
           password,
-          displayPicture: base64String, // now a string
+          displayPicture: '', 
         });
-      };
-  
-      reader.readAsDataURL(profilePicture); // Convert image to base64
+      }
     },
   });
+  
   
 
   return (
@@ -151,7 +166,7 @@ const ProfilePicture = ({ setStep, email, password, username}:props) => {
 
           </div>
         </div>
-        <button className='profile-button' onClick={submitSignUp} disabled={disableButton || !profilePicture}>Register</button>
+        <button className='profile-button' onClick={submitSignUp} disabled={disableButton}>Register</button>
 
       </div>
     </div>

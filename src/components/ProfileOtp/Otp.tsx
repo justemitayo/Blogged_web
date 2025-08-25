@@ -141,6 +141,8 @@ const Otp = () => {
     }
   });
 
+  
+
   return (
     <div className='verify'>
          {showSpinner &&

@@ -72,6 +72,7 @@ const  update_username_mutate= useMutation({
 
 const update_username_func = no_double_clicks({
   execFunc: () => {
+    if (!user_info) return; 
       if (username) {
           update_username_mutate.mutate({
               user_token:user_info.token!,

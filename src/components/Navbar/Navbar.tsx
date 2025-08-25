@@ -1,18 +1,52 @@
-import React from 'react'
-import './Navbar.css'
+import React, { useState } from "react";
+import "./Navbar.css";
+import { useUserInfoStore } from "../../store/User_Info.store";
+import { Link } from "react-router-dom";
+import blogged from '../../Assets/icon/Blogged_Logo_Black.png'
 
-
-interface props{
-  setLoginPop: React.Dispatch<React.SetStateAction<boolean>>
+interface props {
+  setLoginPop: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Navbar = ({setLoginPop}:props) => {
+const Navbar = ({ setLoginPop }: props) => {
+  const user_info = useUserInfoStore().user_info;
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <div className='navbar'>
-      <h2>Blogged</h2>
-      <button onClick={() => setLoginPop(true)}>Sign In</button>
-    </div>
-  )
-}
+    <nav className="navbar">
+      <img src={blogged} alt="blogged"/>
 
-export default Navbar
+      {user_info?.token ? (
+        <>
+          <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to='/createblog'>Create</Link>
+            </li>
+            <li>
+              <Link to="/profile"> Profile</Link>
+            </li>
+            <li>
+              <Link to="/setting">Settings</Link>
+            </li>
+          </ul>
+
+          <div
+            className={`hamburger ${menuOpen ? "active" : ""}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </>
+      ) : (
+        <button onClick={() => setLoginPop(true)}>Sign In</button>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;

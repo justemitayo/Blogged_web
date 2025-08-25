@@ -133,6 +133,7 @@ const Home = () => {
 
   return (
     <div className='home'>
+      {user_Info?.token ? (<>
       <div className='home-header'>
         <input 
           placeholder='Search for Blogs...'
@@ -226,6 +227,11 @@ const Home = () => {
 
         )
       }
+      </>) : (
+        <>
+        <p>hiii</p>
+        </>
+      )}
     </div>
   )
 }
