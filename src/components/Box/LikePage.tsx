@@ -29,7 +29,7 @@ const LikePage = () => {
     isError,
   } = useInfiniteQuery(
     {
-      queryKey: query_id({}).blog_with_id_likes,
+      queryKey:[query_id({}).blog_with_id_likes, bid],
       queryFn: ({ pageParam = 0 }) =>
         get_blog_likes({
           blogID: bid!,

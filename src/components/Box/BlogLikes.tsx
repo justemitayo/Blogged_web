@@ -289,7 +289,7 @@ const dpSrc =blog_like?.dp_link === 'none' || !blog_like?.dp_link ? UserDp : htt
 
   return (
     <div className="blog-like-item">
-      <div className="profile-pic" onClick={navToAuthorsPage}>
+      <div className="profile-pics" onClick={navToAuthorsPage}>
         <img src={dpSrc} alt="user" />
       </div>
 
