@@ -14,9 +14,12 @@ import back from '../../Assets/icon/Back_Arrow.png'
 import { INTF_Tag } from '../../Interface/Tags';
 import { no_double_clicks } from '../../utils/no_double_click/no_double_clicks';
 import TagButton from '../../components/Tag/TagButton';
+import LandingPage from '../LandingPage/LandingPage';
 
-
-const Home = () => {
+interface props {
+  setLoginPop: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Home = ({ setLoginPop }: props) => {
   const [search, setSearch] = useState<string>('');
 
   const [allBlogs, setAllBlogs] = useState<INTF_BlogPost[]>([]);
@@ -228,9 +231,7 @@ const Home = () => {
         )
       }
       </>) : (
-        <>
-        <p>hiii</p>
-        </>
+        <LandingPage setLoginPop={setLoginPop}/>
       )}
     </div>
   )

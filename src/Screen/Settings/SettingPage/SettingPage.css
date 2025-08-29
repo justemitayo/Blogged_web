@@ -132,6 +132,10 @@
 }
 
 @media (max-width: 480px) {
+  .settings-container {
+    height: calc(100vh - 10rem);
+  }
+
   .profile-pic-wrapper {
     width: 90px;
     height: 90px;

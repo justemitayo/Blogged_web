@@ -133,6 +133,7 @@
 @media (max-width: 480px) {
   .fp-main {
     padding: 2rem;
+    height: calc(100vh - 9rem);
   
   }
 

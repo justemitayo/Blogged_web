@@ -18,20 +18,20 @@ const Navbar = ({ setLoginPop }: props) => {
 
       {user_info?.token ? (
         <>
-          <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to='/createblog'>Create</Link>
-            </li>
-            <li>
-              <Link to="/profile"> Profile</Link>
-            </li>
-            <li>
-              <Link to="/setting">Settings</Link>
-            </li>
-          </ul>
+        <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
+          <li>
+            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+          </li>
+          <li>
+            <Link to="/createblog" onClick={() => setMenuOpen(false)}>Create</Link>
+          </li>
+          <li>
+            <Link to="/profile" onClick={() => setMenuOpen(false)}>Profile</Link>
+          </li>
+          <li>
+            <Link to="/setting" onClick={() => setMenuOpen(false)}>Settings</Link>
+          </li>
+        </ul>
 
           <div
             className={`hamburger ${menuOpen ? "active" : ""}`}

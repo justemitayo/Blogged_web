@@ -1,0 +1,82 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  height:calc(100vh - 7.5rem);
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #fafafa;
+  color: #333;
+}
+
+.landing-header {
+  padding: 3rem 1rem 2rem;
+}
+
+.landing-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.landing-header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.landing-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  width: 80vw;
+  margin: 0 auto;
+}
+
+.preview-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.preview-card:hover {
+  transform: translateY(-3px);
+  background: black;
+  color: white;
+}
+
+.landing-footer {
+  padding: 2rem 1rem;
+  border-top: 1px solid #eee;
+}
+
+.landing-signin {
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  background: black;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.landing-signin:hover {
+  background: #333;
+}
+
+/* Mobile tweaks */
+@media screen and (max-width: 768px) {
+  .landing-header h1 {
+    font-size: 2rem;
+  }
+
+  .preview-card {
+    padding: 1rem;
+  }
+
+  .landing-signin {
+    width: 100%;
+  }
+}

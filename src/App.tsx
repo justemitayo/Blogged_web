@@ -114,7 +114,7 @@ function App() {
        <div className='App'>
         <Navbar setLoginPop={setLoginPop}/>
        <Routes>
-       <Route path='/' element={<Home />}/>
+       <Route path='/' element={<Home setLoginPop={setLoginPop}/>}/>
         <Route path='/info' element={ <InfoPage />} />
         <Route path='/error' element={<ErrorPage />}/>
         <Route path='/otp' element={<Otp />}/>
@@ -159,8 +159,6 @@ function App() {
     </BrowserRouter>
   );
 }
-
-//the otp screen... the solution is unknown for now 
 //problem with likePage we need it to update once we click it now update after a refresh
 //text area in the blog-message need to start from the top
 

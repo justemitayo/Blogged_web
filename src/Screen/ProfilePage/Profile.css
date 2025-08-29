@@ -1,6 +1,6 @@
 .ap_main {
   background-color: #fff;
-  height: 100vh;
+  height: calc(100vh - 2.5rem);
   display: flex;
   flex-direction: column;
   margin-right: 1rem;
@@ -14,9 +14,8 @@
 }
 
 .ap_container {
-  padding: 0 5vw;
+  padding: 0 1rem;
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -24,7 +23,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 5px;
   margin: 20px 0;
 }
 
@@ -38,9 +37,9 @@
 }
 
 .ap_dp {
-  border-radius: 100px;
-  width: 100px;
-  height: 100px;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
   object-fit: cover;
 }
 
@@ -57,7 +56,7 @@
 
 .ap_txt_val {
   font-family: Urbanist_600;
-  font-size: 18px;
+  font-size: 12px;
   color: black;
 }
 
@@ -73,7 +72,7 @@
   align-items: center;
   margin: 10px 22px;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 5px;
 }
 
 .ap_username_col {
@@ -88,7 +87,8 @@
 }
 
 .ap_username_txt {
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .ap_verified_icon {
@@ -97,7 +97,7 @@
 
 .ap_joined {
   margin-top: 5px;
-  font-size: 16px;
+  font-size: 12px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -172,8 +172,9 @@
   color: #222;
 }
 .text-divider {
-  border: 2px solid black;
-  margin-right: 1rem;
+  /* border: 1px solid black;
+  margin-right: 1rem; */
+  display: none;
 }
 
 /* ---------- Desktop Styles ---------- */

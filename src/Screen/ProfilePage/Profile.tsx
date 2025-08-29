@@ -187,7 +187,7 @@ const Profile = () => {
         {isAuthorsBlogLoading ? (
                   <div className="overlay-spinner">
                     <div className="spinner" />
-                    <p>Loading...</p>
+                    <p>Loading Post...</p>
                   </div>
         ) : (
           <div className="ap_blog_list">

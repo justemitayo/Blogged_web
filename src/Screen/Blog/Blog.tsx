@@ -339,7 +339,7 @@ const Blog = () => {
         <div className='blog-component'>
         <div className='blog-head'>
           <img src={blogInfo?.b_dp_link === 'none' || blogInfo?.b_dp_link === undefined
-            ? noImage :  http_link_fix({http_link: blogInfo?.b_dp_link as string,})} alt="" />
+            ? noImage :  http_link_fix({http_link: blogInfo?.b_dp_link as string,})} alt=""  />
           
         </div>
         <div className='blog-header'>
