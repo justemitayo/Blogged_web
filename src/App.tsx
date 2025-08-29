@@ -159,8 +159,7 @@ function App() {
     </BrowserRouter>
   );
 }
-//problem with likePage we need it to update once we click it now update after a refresh
-//text area in the blog-message need to start from the top
+
 
 
 export default App;
