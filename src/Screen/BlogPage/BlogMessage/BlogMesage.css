@@ -117,6 +117,9 @@
 }
 
 @media (min-width: 768px) {
+  .blogdp-container {
+    height: calc(100vh - 9rem);
+  }
   .blogdp-editor textarea {
     height: 400px;
   }

@@ -26,11 +26,7 @@
   margin-bottom: 40px;
 }
 
-@media (max-width: 768px) {
-  .btp-header {
-    margin-top: 56px;
-  }
-}
+
 
 .btp-scroll {
   flex: 1;
@@ -86,6 +82,27 @@
   margin-top: auto;
   margin-bottom: 50px;
   padding: 0 22px;
+}
+
+
+@media (max-width: 768px) {
+  .btp-main {
+    height: calc(100vh - 4.5rem);
+  }
+  .btp-header {
+    margin-top: 16px;
+  }
+  .btp-title {
+    font-size: 20px;
+  }
+  .btp-subtitle{
+    font-size: 14px;
+    text-align: center;
+  }
+  .btp-tags-section {
+    margin-top: 0;
+    overflow-y: auto;
+  }
 }
 
 @media (max-height: 650px) {

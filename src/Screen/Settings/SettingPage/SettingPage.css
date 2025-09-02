@@ -28,8 +28,8 @@
 .profile-pic-wrapper {
   border: 2px solid #aaa;
   border-radius: 50%;
-  width: 260px;
-  height: 260px;
+  width: 250px;
+  height: 250px;
   margin: 0 auto;
   padding: 5px;
 }
@@ -133,7 +133,7 @@
 
 @media (max-width: 480px) {
   .settings-container {
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 10.3rem);
   }
 
   .profile-pic-wrapper {
@@ -142,8 +142,8 @@
   }
 
   .profile-pic {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
   }
 
   .username {

@@ -57,6 +57,9 @@ const BlogTagPage: React.FC = () => {
 
   return (
     <div className="btp-main">
+          <div className="btp-header">
+        <img alt='' src={back} className='back' onClick={() => navigate(-1)}/>
+      </div>
       {showSpinner && (
         <div className="overlay-spinner">
           <div className="spinner" />
@@ -64,9 +67,7 @@ const BlogTagPage: React.FC = () => {
         </div>
       )}
 
-      <div className="btp-header">
-        <img alt='' src={back} className='back' onClick={() => navigate(-1)}/>
-      </div>
+
 
       <div className="btp-scroll">
         <h1 className="btp-title">Select your Blog Tags?</h1>
