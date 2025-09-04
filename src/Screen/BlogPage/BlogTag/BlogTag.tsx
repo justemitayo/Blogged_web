@@ -60,6 +60,7 @@ const BlogTagPage: React.FC = () => {
           <div className="btp-header">
         <img alt='' src={back} className='back' onClick={() => navigate(-1)}/>
       </div>
+      
       {showSpinner && (
         <div className="overlay-spinner">
           <div className="spinner" />
@@ -80,13 +81,14 @@ const BlogTagPage: React.FC = () => {
               {app_tags !== undefined &&
                 (app_tags || [])?.map(
                   (tag: INTF_Tag, index: number) => (
-                    <TagButton tag={tag} key={index} />
+                    <TagButton tag={tag} key={index} blogTags={blogTags} setBlogTags={setBlogTags} />
                   ),
                 )}
             </div>
-
+            <div className='frey'>
             <h2 className="btp-section-title mt-20">Clear all Tags:</h2>
             <button onClick={clear_blog_tags} className="btp-button" >Clear Tags</button>
+            </div>
           </div>
         )}
       </div>

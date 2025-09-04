@@ -37,6 +37,7 @@ const BlogDp = () => {
           error_mssg: err.message,
         });
       };
+      reader.readAsDataURL(file);
     });
   }
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import AccountPopup from './components/AccountPopup/AccountPopup';
 import Navbar from './components/Navbar/Navbar';
@@ -34,12 +34,14 @@ import Password from './Screen/Settings/Feedback/Password';
 import ProfileSet from './Screen/Settings/Profile/ProfileSet';
 import FindAuthor from './Screen/FollowerPage/FindAuthor';
 import ProfilePicture from './components/ProfileOtp/ProfilePicture';
+import { error_handler } from './utils/Error_Handler/Error_Handler';
 
 
 
 function App() {
 
   const [loginPop, setLoginPop] = useState<boolean>(false);
+  const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -90,19 +92,29 @@ function App() {
   useEffect(() => {
     if (!tagsError) {
         set_app_tags((tagsData?.data as INTF_Tag[]) || [],);
+    } else{
+                  error_handler({
+                      navigate,
+                      error_mssg: 'Tags Error Message',
+                  });
     }
     if (!advertsError) {
         if (advertsData?.pages) {
             set_app_adverts(advertsData?.pages?.flatMap(pages => pages.data || [],) as INTF_Advert[],);
         }
+    }else {
+      error_handler({
+        navigate,
+        error_mssg: 'Advert Error Message',
+    });
     }
-  }, [tagsData, advertsData, tagsError, advertsError, set_app_adverts, set_app_tags]);
+  }, [navigate, tagsData, advertsData, tagsError, advertsError, set_app_adverts, set_app_tags]);
 
   
 
 
   return (
-    <BrowserRouter>
+    <>
         {loginPop ? 
         <AccountPopup setLoginPop={setLoginPop}  
           email={email} setEmail={setEmail}
@@ -156,7 +168,7 @@ function App() {
 
        </Routes>
        </div>
-    </BrowserRouter>
+    </>
   );
 }
 

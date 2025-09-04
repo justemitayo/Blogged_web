@@ -43,10 +43,14 @@ const BlogTitle = () => {
   }, [b_title]);
 
   return (
-    <div className="btp-main">
+    <div className="btp-mains">
       <div className="btp-back-btn">
         <img alt='' src={back} className='back' onClick={() => navigate(-1)}/>
       </div>
+
+
+      <div className='btp-content'>
+
 
       <h1 className="btp-title">What's your Blog Title?</h1>
       <p className="btp-subtitle">
@@ -65,6 +69,8 @@ const BlogTitle = () => {
       <button onClick={openBlogTags} className="btp-button">
         Next
       </button>
+
+      </div>
     </div>
   )
 }

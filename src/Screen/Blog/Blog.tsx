@@ -399,7 +399,7 @@ const Blog = () => {
                   <p>{shorten_text({text: user_data?.username as string, limit: 25,})}</p>
                 </div>
                 <textarea value = {reply} onChange={(e) => setReply(e.target.value) }  placeholder="Write your comment..." />
-                <button onClick={send_reply}>Send Reply</button>
+                <button onClick={send_reply}>Add Comment</button>
               </div>
             ) : (
                 <div>

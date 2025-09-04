@@ -64,6 +64,7 @@ const fileToBase64 = (file: File): Promise<string> => {
         error_mssg: err.message,
       });
     };
+    reader.readAsDataURL(file);
   });
 }
 

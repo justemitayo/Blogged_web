@@ -44,7 +44,6 @@ const Home = ({ setLoginPop }: props) => {
     error: allBlogsError,
     fetchNextPage: fetchNextAllBlogs,
     hasNextPage: hasNextPageAllBlogs,
-    isFetching: isFetchingAllBlogs,
     isFetchingNextPage: isFetchingNextAllBlogs,
     refetch: refetchAllBlogs,
     isLoading: isLoadingAllBlogs,
@@ -142,7 +141,6 @@ const Home = ({ setLoginPop }: props) => {
           placeholder='Search for Blogs...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          disabled={isFetchingAllBlogs} 
         />
         <img src={filter} alt='' onClick={openModal}/>
       </div>

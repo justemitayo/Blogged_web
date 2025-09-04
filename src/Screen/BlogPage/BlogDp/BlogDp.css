@@ -30,7 +30,6 @@ html, body {
 .register-pictures img{
   width: max(40vw, 300px);
   height: max(25vw, 200px);
-  border-radius: 50%;
   position: absolute; 
 }
 .profile-picture-components {
