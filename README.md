@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# 📝 Blogged — Modern Blogging Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Blogged** is a full-featured blogging platform built with **ReactJS**, designed for seamless content creation, discovery, and community interaction.  
+It includes **authentication**, **author profiles**, **likes, comments, tags**, and **infinite blog pagination**, with a responsive and dynamic UI inspired by leading blogging platforms.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `yarn start`
+- 👤 **Full Authentication Flow**
+  - Sign up, Sign in, Email Verification, Password Recovery
+  - Token-based session persistence
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- ✍️ **Author System**
+  - Dedicated author pages with followers, following, and post counts  
+  - Follow/Unfollow functionality with optimistic UI updates  
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- 📰 **Dynamic Blog Feed**
+  - Trending, Recommended, and Searchable blog lists  
+  - Infinite scroll pagination using React Query  
+  - Blog details page with likes, comments, and author info  
 
-### `yarn test`
+- 🏷️ **Tag System**
+  - Explore and filter blogs by tags  
+  - Tag-specific pages with infinite scrolling  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 🖼️ **Profile & Media Management**
+  - Update profile pictures  
+  - Edit or delete posts with confirmation modals  
 
-### `yarn build`
+- ⚡ **Optimized Performance**
+  - API-cached queries via TanStack Query  
+  - Zustand store for global state management  
+  - Seamless navigation and instant UI feedback  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 🎨 **Responsive Design**
+  - Clean, mobile-first layout with modular components  
+  - Adaptive for desktop, tablet, and mobile screens  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠️ Tech Stack
 
-### `yarn eject`
+| Category | Technology |
+|-----------|-------------|
+| Frontend | ReactJS |
+| State Management | Zustand |
+| Data Fetching | TanStack Query (React Query) |
+| Routing | React Router DOM |
+| API | REST (Axios) |
+| Styling | Tailwind CSS |
+| Deployment | Netlify |
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+src/
+│
+├── api/               # Axios API service functions
+├── assets/            # Icons, images
+├── components/        # Reusable UI components
+├── hooks/             # Custom React hooks
+├── pages/             # Main app screens (Home, Details, Author, etc.)
+├── store/             # Zustand stores (user, cart, like, theme, etc.)
+├── utils/             # LocalStorage helpers and utilities
+└── App.tsx            # Root application entry
